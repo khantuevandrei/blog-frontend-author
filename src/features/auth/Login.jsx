@@ -3,7 +3,7 @@ import UsernameField from "../../components/UsernameField";
 import PasswordField from "../../components/PasswordField";
 import AlertMessage from "../../components/AlertMessage";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 
 export default function Login() {
@@ -70,6 +70,16 @@ export default function Login() {
           </Button>
         </form>
         {error && <AlertMessage type="error">{error}</AlertMessage>}
+        <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
+          Dont't have an account?
+          <br />
+          <Link
+            to="/register"
+            style={{ textDecoration: "none", color: "blue" }}
+          >
+            Register
+          </Link>
+        </Typography>
       </Paper>
     </Box>
   );
