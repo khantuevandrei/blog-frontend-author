@@ -3,6 +3,7 @@ import App from "../App";
 import Posts from "../features/posts/Posts";
 
 const Register = lazy(() => import("../features/auth/Register"));
+const Login = lazy(() => import("../features/auth/Login"));
 
 const routes = [
   {
@@ -18,6 +19,14 @@ const routes = [
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <Register />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/login",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login />
           </Suspense>
         ),
       },
