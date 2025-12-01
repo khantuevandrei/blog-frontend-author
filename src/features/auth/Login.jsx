@@ -39,11 +39,7 @@ export default function Login() {
       }
 
       // Save token to localStorage
-      login(data.token, {
-        id: data.id,
-        username: data.username,
-        role: data.role,
-      });
+      login(data.token, data.user);
 
       navigate("/");
     } catch {
