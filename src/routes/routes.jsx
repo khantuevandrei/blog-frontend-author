@@ -1,30 +1,27 @@
+import { Suspense, lazy } from "react";
 import App from "../App";
-import Posts from "../components/Posts";
-import ErrorPage from "../components/ErrorPage";
-import Register from "../components/Register";
-import Login from "../components/Login";
+import Posts from "../features/posts/Posts";
+
+const Register = lazy(() => import("../features/auth/Register"));
 
 const routes = [
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
         element: <Posts />,
       },
+      {
+        path: "/register",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Register />
+          </Suspense>
+        ),
+      },
     ],
-  },
-  {
-    path: "/register",
-    element: <Register />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-    errorElement: <ErrorPage />,
   },
 ];
 
