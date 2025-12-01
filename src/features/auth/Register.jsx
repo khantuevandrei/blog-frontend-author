@@ -23,7 +23,7 @@ export default function Register() {
     lowercase: /[a-z]/,
     uppercase: /[A-Z]/,
     number: /\d/,
-    symbol: /[!@#$%^&*()_\-+=\[\]{};:"\\|,.<>\/?]/,
+    symbol: /[!@#$%^&*()_\-+=[\]{};:"\\|,.<>/?]/,
     length: /.{8,}/,
   };
 
