@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Paper, Typography, Button } from "@mui/material";
 import UsernameField from "../../components/UsernameField";
@@ -19,15 +19,6 @@ export default function Register() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
 
-  const [validations, setValidations] = useState({
-    length: false,
-    lowercase: false,
-    uppercase: false,
-    number: false,
-    symbol: false,
-    passwordsMatch: false,
-  });
-
   const passwordRegex = {
     lowercase: /[a-z]/,
     uppercase: /[A-Z]/,
@@ -36,18 +27,14 @@ export default function Register() {
     length: /.{8,}/,
   };
 
-  // Update live validation on password change
-  useEffect(() => {
-    const password = form.password;
-    setValidations({
-      length: passwordRegex.length.test(password),
-      lowercase: passwordRegex.lowercase.test(password),
-      uppercase: passwordRegex.uppercase.test(password),
-      number: passwordRegex.number.test(password),
-      symbol: passwordRegex.symbol.test(password),
-      passwordsMatch: password && password === form.confirmPassword,
-    });
-  }, [form.password, form.confirmPassword]);
+  const validations = {
+    length: passwordRegex.length.test(form.password),
+    lowercase: passwordRegex.lowercase.test(form.password),
+    uppercase: passwordRegex.uppercase.test(form.password),
+    number: passwordRegex.number.test(form.password),
+    symbol: passwordRegex.symbol.test(form.password),
+    passwordsMatch: form.password && form.password === form.confirmPassword,
+  };
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
