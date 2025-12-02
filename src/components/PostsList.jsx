@@ -1,13 +1,4 @@
-import {
-  List,
-  ListItem,
-  ListItemText,
-  Box,
-  Divider,
-  Typography,
-  Card,
-  CardContent,
-} from "@mui/material";
+import { List, ListItem, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function PostsList({ posts }) {
