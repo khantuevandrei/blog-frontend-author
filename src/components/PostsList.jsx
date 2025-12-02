@@ -56,7 +56,7 @@ export default function PostsList({ posts }) {
       <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
         <Button
           component={Link}
-          to="/create"
+          to="/new"
           variant="contained"
           sx={{
             bgcolor: "#1e1e1e",
