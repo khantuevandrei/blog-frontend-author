@@ -1,4 +1,10 @@
-import { Box, Paper, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import UsernameField from "../../components/UsernameField";
 import PasswordField from "../../components/PasswordField";
 import AlertMessage from "../../components/AlertMessage";
@@ -9,6 +15,7 @@ import { AuthContext } from "../../context/AuthProvider";
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
@@ -20,6 +27,7 @@ export default function Login() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -44,6 +52,8 @@ export default function Login() {
       navigate("/");
     } catch {
       setError("Network error");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -61,8 +71,14 @@ export default function Login() {
             value={form.password}
             onChange={handleChange}
           />
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-            Login
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2 }}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={20} color="inherit" /> : "Login"}
           </Button>
         </form>
         {error && <AlertMessage type="error">{error}</AlertMessage>}
