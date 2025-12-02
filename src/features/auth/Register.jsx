@@ -120,7 +120,11 @@ export default function Register() {
             variant="contained"
             disabled={loading}
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 2,
+              bgcolor: "#1e1e1e",
+              "&:hover": { bgcolor: "#4d4d4dff" },
+            }}
           >
             {loading ? (
               <CircularProgress size={20} color="inherit" />

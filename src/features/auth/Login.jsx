@@ -82,7 +82,11 @@ export default function Login() {
             type="submit"
             variant="contained"
             fullWidth
-            sx={{ mt: 2 }}
+            sx={{
+              mt: 2,
+              bgcolor: "#1e1e1e",
+              "&:hover": { bgcolor: "#4d4d4dff" },
+            }}
             disabled={loading}
           >
             {loading ? <CircularProgress size={20} color="inherit" /> : "Login"}
