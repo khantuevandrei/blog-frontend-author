@@ -1,24 +1,18 @@
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  CircularProgress,
-} from "@mui/material";
-import UsernameField from "../../components/UsernameField";
-import PasswordField from "../../components/PasswordField";
-import AlertMessage from "../../components/AlertMessage";
 import { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import Form from "../../components/Form";
+import FormField from "../../components/FormField";
+import PasswordField from "../../components/PasswordField";
+import FormButton from "../../components/FormButton";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
-  const [loading, setLoading] = useState(false);
-
-  const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({ username: "", password: "" });
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -43,6 +37,7 @@ export default function Login() {
 
       if (!response.ok) {
         setError(data.message || "Login failed");
+        setLoading(false);
         return;
       }
 
@@ -52,58 +47,25 @@ export default function Login() {
       navigate("/");
     } catch {
       setError("Network error");
-    } finally {
-      setLoading(false);
     }
   }
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexGrow: 1,
-      }}
-    >
-      <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 400 }}>
-        <Typography variant="h5" mb={2}>
-          Login
-        </Typography>
-        <form onSubmit={handleSubmit}>
-          <UsernameField value={form.username} onChange={handleChange} />
-          <PasswordField
-            label="Password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{
-              mt: 2,
-              bgcolor: "#1e1e1e",
-              "&:hover": { bgcolor: "#4d4d4dff" },
-            }}
-            disabled={loading}
-          >
-            {loading ? <CircularProgress size={20} color="inherit" /> : "Login"}
-          </Button>
-        </form>
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
-        <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
-          Dont't have an account?
-          <br />
-          <Link
-            to="/register"
-            style={{ textDecoration: "none", color: "blue" }}
-          >
-            Register
-          </Link>
-        </Typography>
-      </Paper>
-    </Box>
+    <Form width={400} name="Login" onSubmit={handleSubmit}>
+      <FormField
+        label="Username"
+        name="username"
+        value={form.username}
+        onChange={handleChange}
+      />
+      <PasswordField
+        label="Password"
+        name="password"
+        value={form.password}
+        onChange={handleChange}
+      />
+      <FormButton name="Login" disabled={loading} />
+      {error && <AlertMessage type="error">{error}</AlertMessage>}
+    </Form>
   );
 }
