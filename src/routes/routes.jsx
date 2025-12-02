@@ -1,6 +1,7 @@
 import { Suspense, lazy } from "react";
 import App from "../App";
 import Posts from "../features/posts/Posts";
+import Loading from "../components/Loading";
 
 const Register = lazy(() => import("../features/auth/Register"));
 const Login = lazy(() => import("../features/auth/Login"));
@@ -16,19 +17,11 @@ const routes = [
       },
       {
         path: "/register",
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Register />
-          </Suspense>
-        ),
+        element: <Register />,
       },
       {
         path: "/login",
-        element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Login />
-          </Suspense>
-        ),
+        element: <Login />,
       },
     ],
   },
