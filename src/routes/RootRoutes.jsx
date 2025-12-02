@@ -7,6 +7,7 @@ import { AuthContext } from "../context/AuthProvider";
 
 const Register = lazy(() => import("../features/auth/Register"));
 const Login = lazy(() => import("../features/auth/Login"));
+const NewPost = lazy(() => import("../features/newPost/NewPost"));
 
 export default function RootRoutes() {
   const { user } = useContext(AuthContext);
@@ -32,6 +33,10 @@ export default function RootRoutes() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/new",
+          element: <NewPost />,
         },
       ],
     },
