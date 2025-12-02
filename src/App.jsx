@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { Box } from "@mui/material";
 import LoadingOverlay from "./components/LoadingOverlay";
 import Header from "./features/header/Header";
-import Footer from "./features/Footer/Footer";
+import Footer from "./features/footer/Footer";
 
 function App() {
   return (
@@ -18,7 +18,15 @@ function App() {
       <Header />
       <Box
         component="main"
-        sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          backgroundImage: `url('../../../public/bg.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
         <Suspense fallback={<LoadingOverlay />}>
           <Outlet />
