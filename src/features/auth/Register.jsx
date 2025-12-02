@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Paper, Typography, Button } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import UsernameField from "../../components/UsernameField";
 import PasswordField from "../../components/PasswordField";
 import PasswordStrength from "../../components/PasswordStrength";
@@ -18,6 +24,7 @@ export default function Register() {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const passwordRegex = {
     lowercase: /[a-z]/,
@@ -44,6 +51,7 @@ export default function Register() {
     e.preventDefault();
     setError(null);
     setSuccess(null);
+    setLoading(true);
 
     if (Object.values(validations).some((v) => !v)) {
       setError("Please fix the validation errors.");
@@ -68,9 +76,11 @@ export default function Register() {
       }
 
       setSuccess("Account created. Redirecting...");
-      setTimeout(() => navigate("/login"), 3000);
+      setTimeout(() => navigate("/login"), 2000);
     } catch {
       setError("Network error");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,8 +108,18 @@ export default function Register() {
           <PasswordStrength validations={validations} />
           <PasswordChecklist validations={validations} />
 
-          <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-            Register
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={loading}
+            fullWidth
+            sx={{ mt: 2 }}
+          >
+            {loading ? (
+              <CircularProgress size={20} color="inherit" />
+            ) : (
+              "Register"
+            )}
           </Button>
         </form>
 
