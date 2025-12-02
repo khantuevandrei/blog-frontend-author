@@ -98,7 +98,7 @@ export default function Register() {
           Create an account
         </Typography>
 
-        <form onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit}>
           <UsernameField value={form.username} onChange={handleChange} />
           <PasswordField
             label="Password"
@@ -132,7 +132,7 @@ export default function Register() {
               "Register"
             )}
           </Button>
-        </form>
+        </Box>
 
         {error && <AlertMessage type="error">{error}</AlertMessage>}
         {success && <AlertMessage type="success">{success}</AlertMessage>}
