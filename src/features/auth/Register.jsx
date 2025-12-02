@@ -11,7 +11,6 @@ import AlertMessage from "../../components/AlertMessage";
 export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -50,7 +49,6 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
     setLoading(true);
 
     if (Object.values(validations).some((v) => !v)) {
@@ -73,15 +71,13 @@ export default function Register() {
 
       if (!response.ok) {
         setError(data.message || "Registration failed");
+        setLoading(false);
         return;
       }
 
-      setSuccess("Account created. Redirecting...");
-      setTimeout(() => navigate("/login"), 2000);
+      navigate("/login");
     } catch {
       setError("Network error");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -109,7 +105,6 @@ export default function Register() {
       <FieldsChecklist validations={validations} />
       <FormButton name="Register" disabled={loading} />
       {error && <AlertMessage type="error">{error}</AlertMessage>}
-      {success && <AlertMessage type="success">{success}</AlertMessage>}
     </Form>
   );
 }
