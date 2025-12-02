@@ -8,7 +8,6 @@ export default function Footer() {
         mt: "auto",
         py: 2,
         textAlign: "center",
-        borderTop: "1px solid #e0e0e0",
         color: "#ffffff",
         bgcolor: "#1e1e1e",
       }}
