@@ -1,10 +1,10 @@
 import { TextField } from "@mui/material";
 
-export default function UsernameField({ value, onChange }) {
+export default function FormField({ label, name, value, onChange }) {
   return (
     <TextField
-      label="Username"
-      name="username"
+      label={label}
+      name={name}
       fullWidth
       margin="normal"
       value={value}
