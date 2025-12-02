@@ -1,30 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Paper,
-  Typography,
-  Button,
-  CircularProgress,
-} from "@mui/material";
-import UsernameField from "../../components/UsernameField";
+import Form from "../../components/Form";
+import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
-import PasswordStrength from "../../components/PasswordStrength";
-import PasswordChecklist from "../../components/PasswordChecklist";
+import ProgressBar from "../../components/ProgressBar";
+import FieldsChecklist from "../../components/FieldsChecklist";
+import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
 
 export default function Register() {
   const navigate = useNavigate();
-
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const usernameRegex = {
+    length: /^.{3,20}$/,
+    validChars: /^[A-Za-z0-9_]+$/,
+  };
 
   const passwordRegex = {
     lowercase: /[a-z]/,
@@ -35,7 +33,9 @@ export default function Register() {
   };
 
   const validations = {
-    length: passwordRegex.length.test(form.password),
+    usernameLength: usernameRegex.length.test(form.username),
+    validChars: usernameRegex.validChars.test(form.username),
+    passLength: passwordRegex.length.test(form.password),
     lowercase: passwordRegex.lowercase.test(form.password),
     uppercase: passwordRegex.uppercase.test(form.password),
     number: passwordRegex.number.test(form.password),
@@ -44,7 +44,7 @@ export default function Register() {
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e) => {
@@ -54,6 +54,7 @@ export default function Register() {
     setLoading(true);
 
     if (Object.values(validations).some((v) => !v)) {
+      setLoading(false);
       setError("Please fix the validation errors.");
       return;
     }
@@ -85,58 +86,30 @@ export default function Register() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexGrow: 1,
-      }}
-    >
-      <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 400 }}>
-        <Typography variant="h5" mb={2}>
-          Create an account
-        </Typography>
-
-        <Box component="form" onSubmit={handleSubmit}>
-          <UsernameField value={form.username} onChange={handleChange} />
-          <PasswordField
-            label="Password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <PasswordField
-            label="Confirm Password"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleChange}
-          />
-          <PasswordStrength validations={validations} />
-          <PasswordChecklist validations={validations} />
-
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={loading}
-            fullWidth
-            sx={{
-              mt: 2,
-              bgcolor: "#1e1e1e",
-              "&:hover": { bgcolor: "#4d4d4dff" },
-            }}
-          >
-            {loading ? (
-              <CircularProgress size={20} color="inherit" />
-            ) : (
-              "Register"
-            )}
-          </Button>
-        </Box>
-
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
-        {success && <AlertMessage type="success">{success}</AlertMessage>}
-      </Paper>
-    </Box>
+    <Form width={400} name="Register" onSubmit={handleSubmit}>
+      <FormField
+        label="Username"
+        name="username"
+        value={form.username}
+        onChange={handleChange}
+      />
+      <PasswordField
+        label="Password"
+        name="password"
+        value={form.password}
+        onChange={handleChange}
+      />
+      <PasswordField
+        label="Confirm Password"
+        name="confirmPassword"
+        value={form.confirmPassword}
+        onChange={handleChange}
+      />
+      <ProgressBar validations={validations} />
+      <FieldsChecklist validations={validations} />
+      <FormButton name="Register" disabled={loading} />
+      {error && <AlertMessage type="error">{error}</AlertMessage>}
+      {success && <AlertMessage type="success">{success}</AlertMessage>}
+    </Form>
   );
 }
