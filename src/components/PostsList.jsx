@@ -53,7 +53,7 @@ export default function PostsList({ posts }) {
           />
         </Box>
       ))}
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 6, mb: 6 }}>
         <Button
           component={Link}
           to="/new"
