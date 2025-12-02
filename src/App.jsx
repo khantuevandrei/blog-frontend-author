@@ -16,7 +16,10 @@ function App() {
       }}
     >
       <Header />
-      <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+      >
         <Suspense fallback={<LoadingOverlay />}>
           <Outlet />
         </Suspense>
