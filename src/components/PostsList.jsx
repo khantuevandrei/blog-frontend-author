@@ -19,7 +19,7 @@ export default function PostsList({ posts }) {
         <Box
           key={post.id}
           component={Link}
-          to={`/posts/${post.id}`}
+          to={`/${post.id}`}
           sx={{
             display: "block",
             textDecoration: "none",
