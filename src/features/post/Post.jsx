@@ -1,15 +1,18 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Paper, Typography, Box } from "@mui/material";
 import { AuthContext } from "../../context/AuthProvider";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import GenericButton from "../../components/GenericButton";
 import AlertMessage from "../../components/AlertMessage";
-import { Paper, Typography, Box } from "@mui/material";
+import MetaLine from "../../components/MetaLine";
+import Comment from "../../components/Comment";
 
 export default function Post() {
   const navigate = useNavigate();
   const { postId } = useParams();
   const { token } = useContext(AuthContext);
+
   const [error, setError] = useState(null);
   const [post, setPost] = useState();
   const [loading, setLoading] = useState({
@@ -17,12 +20,20 @@ export default function Post() {
     edit: false,
     publish: false,
     delete: false,
+    next: false,
+    nextAll: false,
   });
+
+  // Comments state for pagination
+  const [comments, setComments] = useState([]);
+  const [offset, setOffset] = useState(0);
+  const [hasMoreComments, setHasMoreComments] = useState(true);
 
   // Fetch post
   useEffect(() => {
     async function fetchPost() {
       setLoading((prev) => ({ ...prev, overlay: true }));
+
       try {
         const response = await fetch(
           `https://blog-backend-production-16f8.up.railway.app/api/posts/${postId}`,
@@ -41,17 +52,27 @@ export default function Post() {
           return;
         }
         setPost(data);
+        setComments(data.comments);
+        if (data.total_comments < 5) {
+          setHasMoreComments(false);
+        }
+        if (data.total_comments > 5) {
+          setHasMoreComments(true);
+          setOffset(5);
+        }
       } catch {
         setError("Network error");
       } finally {
         setLoading((prev) => ({ ...prev, overlay: false }));
       }
     }
+
     fetchPost();
   }, [postId, token]);
 
   // Edit post
   function handleEdit() {
+    setLoading((prev) => ({ ...prev, edit: true }));
     navigate(`/${postId}/edit`);
   }
 
@@ -115,98 +136,165 @@ export default function Post() {
     }
   }
 
-  return loading.overlay ? (
-    <LoadingOverlay />
-  ) : (
+  // Load comments
+  async function loadNextComments(limit) {
+    // Which button was pressed
+    limit > 5
+      ? setLoading((prev) => ({ ...prev, nextAll: true }))
+      : setLoading((prev) => ({ ...prev, next: true }));
+    try {
+      if (!hasMoreComments) return;
+
+      const response = await fetch(
+        `https://blog-backend-production-16f8.up.railway.app/api/posts/${postId}/comments?limit=${limit}&offset=${offset}`
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        setLoading((prev) => ({ ...prev, next: false }));
+        setLoading((prev) => ({ ...prev, nextAll: false }));
+        setError(data.message || "Failed to get comments");
+        return;
+      }
+
+      setComments((prev) => {
+        const newComments = [...prev, ...data.comments];
+
+        // Still has comments
+        if (post.total_comments > newComments.length) {
+          setHasMoreComments(true);
+          setOffset(newComments.length);
+        }
+
+        // No comments left
+        if (post.total_comments === newComments.length) {
+          setHasMoreComments(false);
+        }
+
+        return newComments;
+      });
+    } catch {
+      setError("Network error");
+    } finally {
+      setLoading((prev) => ({ ...prev, next: false }));
+      setLoading((prev) => ({ ...prev, nextAll: false }));
+    }
+  }
+
+  if (loading.overlay) return <LoadingOverlay />;
+
+  return (
     <Box
       sx={{
         flexGrow: 1,
         width: "100%",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
+      {/* Post */}
       <Paper
         elevation={2}
         sx={{
           p: 4,
           borderRadius: 3,
-          margin: 10,
           width: 600,
+          mt: 6,
         }}
       >
         <Typography variant="h4" fontWeight={600} mb={2}>
           {post.title}
         </Typography>
+
         <Typography variant="subtitle1" sx={{ color: "gray", mb: 1 }}>
-          By <strong>@{post.author.username}</strong>
+          by <strong>@{post.author.username}</strong>
         </Typography>
-        <Typography variant="body2" sx={{ color: "gray" }}>
-          Created:{" "}
-          {new Date(post.created_at).toLocaleString(undefined, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </Typography>
-        {post.updated_at !== post.created_at ? (
-          <Typography variant="body2" sx={{ color: "gray" }}>
-            Updated:{" "}
-            {new Date(post.updated_at).toLocaleString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Typography>
-        ) : (
-          ""
+
+        <MetaLine label="Created" value={post.created_at} />
+
+        {post.updated_at !== post.created_at && (
+          <MetaLine label="Updated" value={post.updated_at} />
         )}
+
         {post.published ? (
-          <Typography variant="body2" sx={{ color: "gray" }}>
-            Published:{" "}
-            {new Date(post.published_at).toLocaleString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Typography>
+          <MetaLine label="Published" value={post.published_at} />
         ) : (
-          <Typography variant="body2" sx={{ color: "gray" }}>
-            Not published
-          </Typography>
+          <MetaLine label="Not published" />
         )}
+
         <Typography
           variant="body1"
           sx={{ whiteSpace: "pre-line", mt: 4, mb: 4 }}
         >
           {post.body}
         </Typography>
+
         <Box sx={{ display: "flex", gap: 1 }}>
           <GenericButton name="Edit" onClick={handleEdit} />
-          {post.published ? (
-            ""
-          ) : (
+
+          {!post.published && (
             <GenericButton
               name="Publish"
               disabled={loading.publish}
               onClick={handlePublish}
             />
           )}
+
           <GenericButton
             name="Delete"
             disabled={loading.delete}
             onClick={handleDelete}
           />
         </Box>
+
         {error && <AlertMessage type="error">{error}</AlertMessage>}
       </Paper>
+
+      {/* Comments */}
+      {comments.length > 0 && (
+        <Paper
+          elevation={2}
+          sx={{
+            p: 4,
+            borderRadius: 3,
+            my: 6,
+            width: 600,
+          }}
+        >
+          <Typography variant="h5" fontWeight={600} mb={2}>
+            Comments:
+          </Typography>
+
+          {comments.map((comment, index) => (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              isLast={index === comments.length - 1}
+            />
+          ))}
+
+          {/* Next comments buttons */}
+          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+            {hasMoreComments && (
+              <GenericButton
+                name="Load next 5"
+                disabled={loading.next}
+                onClick={() => loadNextComments(5)}
+              />
+            )}
+
+            {hasMoreComments && (
+              <GenericButton
+                name="Load all comments"
+                disabled={loading.nextAll}
+                onClick={() => loadNextComments(post.total_comments)}
+              />
+            )}
+          </Box>
+        </Paper>
+      )}
     </Box>
   );
 }
