@@ -1,11 +1,5 @@
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Paper,
-  CircularProgress,
-} from "@mui/material";
+import { Box, TextField, Typography, Paper } from "@mui/material";
+import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
@@ -16,7 +10,6 @@ export default function NewPost() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ title: "", body: "" });
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
 
   function handleChange(e) {
@@ -26,7 +19,6 @@ export default function NewPost() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
     setLoading(true);
 
     if (!form.title.trim() || !form.body.trim()) {
@@ -47,16 +39,12 @@ export default function NewPost() {
           body: JSON.stringify(form),
         }
       );
-
       const data = await response.json();
-
       if (!response.ok) {
         setError(data.message || "Post creation failed");
         return;
       }
-
-      setSuccess("Post created. Redirecting...");
-      setTimeout(() => navigate("/"), 2000);
+      navigate(`/${data.id}`);
     } catch {
       setError("Network error");
     } finally {
@@ -102,27 +90,10 @@ export default function NewPost() {
             required
           />
 
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={loading}
-            fullWidth
-            sx={{
-              mt: 3,
-              bgcolor: "#1e1e1e",
-              "&:hover": { bgcolor: "#4d4d4dff" },
-            }}
-          >
-            {loading ? (
-              <CircularProgress size={20} color="inherit" />
-            ) : (
-              "Create"
-            )}
-          </Button>
+          <FormButton name="Create" disabled={loading} />
         </Box>
 
         {error && <AlertMessage type="error">{error}</AlertMessage>}
-        {success && <AlertMessage type="success">{success}</AlertMessage>}
       </Paper>
     </Box>
   );
