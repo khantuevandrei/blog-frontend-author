@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Paper, Typography, Box } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthProvider";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import GenericButton from "../../components/GenericButton";
@@ -69,12 +70,6 @@ export default function Post() {
 
     fetchPost();
   }, [postId, token]);
-
-  // Edit post
-  function handleEdit() {
-    setLoading((prev) => ({ ...prev, edit: true }));
-    navigate(`/${postId}/edit`);
-  }
 
   // Publish post
   async function handlePublish() {
@@ -232,7 +227,20 @@ export default function Post() {
         </Typography>
 
         <Box sx={{ display: "flex", gap: 1 }}>
-          <GenericButton name="Edit" onClick={handleEdit} />
+          <GenericButton
+            name={
+              <>
+                <ArrowBack style={{ marginRight: 6 }} />
+                Back
+              </>
+            }
+            onClick={() => navigate("/")}
+          />
+
+          <GenericButton
+            name="Edit"
+            onClick={() => navigate(`/${postId}/edit`)}
+          />
 
           {!post.published && (
             <GenericButton
