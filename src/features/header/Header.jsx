@@ -21,7 +21,17 @@ export default function Header() {
           {user ? (
             <>
               <Typography variant="body1">
-                Hello, <strong>{user.username}</strong>
+                Hello,{" "}
+                <Link
+                  to={"/me"}
+                  style={{
+                    textDecoration: "none",
+                    color: "inherit",
+                    fontWeight: 700,
+                  }}
+                >
+                  {user.username}
+                </Link>
               </Typography>
               <Button color="inherit" onClick={logout} sx={{ ml: 2 }}>
                 Logout
