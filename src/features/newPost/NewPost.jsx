@@ -1,9 +1,9 @@
 import { Box, TextField, Typography, Paper } from "@mui/material";
-import FormButton from "../../components/FormButton";
-import AlertMessage from "../../components/AlertMessage";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
+import FormButton from "../../components/FormButton";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function NewPost() {
   const { token } = useContext(AuthContext);

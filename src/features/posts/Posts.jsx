@@ -38,9 +38,9 @@ export default function Posts() {
     fetchPosts(user);
   }, [user, token]);
 
-  return loading ? (
-    <LoadingOverlay />
-  ) : (
+  if (loading) return <LoadingOverlay />;
+
+  return (
     <Box>
       <Typography
         variant="h5"

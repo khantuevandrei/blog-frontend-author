@@ -131,7 +131,7 @@ export default function Post() {
     }
   }
 
-  // Load comments
+  // Fetch comments
   async function loadNextComments(limit) {
     // Which button was pressed
     limit > 5
