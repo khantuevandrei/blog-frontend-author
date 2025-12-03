@@ -1,12 +1,13 @@
 import { lazy, useContext } from "react";
 import { useRoutes } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 import App from "../App";
 import Posts from "../features/posts/Posts";
 import RequireAuth from "../components/RequireAuth";
-import { AuthContext } from "../context/AuthProvider";
 
 const Register = lazy(() => import("../features/auth/Register"));
 const Login = lazy(() => import("../features/auth/Login"));
+const User = lazy(() => import("../features/user/User"));
 const NewPost = lazy(() => import("../features/newPost/NewPost"));
 const Post = lazy(() => import("../features/post/Post"));
 
@@ -34,6 +35,10 @@ export default function RootRoutes() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/me",
+          element: <User />,
         },
         {
           path: "/new",
