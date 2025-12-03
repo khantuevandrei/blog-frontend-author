@@ -27,6 +27,8 @@ export default function PostsList({ posts }) {
     <List sx={{ width: "100%", maxWidth: 600, mx: "auto" }}>
       {posts.map((post) => (
         <ListItem
+          component={Link}
+          to={`${post.id}`}
           key={post.id}
           sx={{
             display: "block",
@@ -40,8 +42,6 @@ export default function PostsList({ posts }) {
         >
           <Typography
             variant="h6"
-            component={Link}
-            to={`${post.id}`}
             sx={{ textDecoration: "none", color: "#0068bdff", fontWeight: 500 }}
           >
             {post.title}
