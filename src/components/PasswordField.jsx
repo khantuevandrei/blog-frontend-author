@@ -2,7 +2,13 @@ import { useState } from "react";
 import { TextField, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-export default function PasswordField({ label, name, value, onChange }) {
+export default function PasswordField({
+  label,
+  name,
+  value,
+  onChange,
+  required = true,
+}) {
   const [show, setShow] = useState(false);
   const toggle = () => setShow((prev) => !prev);
 
@@ -15,7 +21,7 @@ export default function PasswordField({ label, name, value, onChange }) {
       margin="normal"
       value={value}
       onChange={onChange}
-      required
+      required={required}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
