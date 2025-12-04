@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Box, Collapse } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
+import { Box, Collapse, Typography } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -154,6 +154,28 @@ export default function Register() {
         {error.response && (
           <AlertMessage type="error">{error.response}</AlertMessage>
         )}
+        <Typography
+          sx={{
+            mt: 2,
+            textAlign: "center",
+            color: "#333",
+            fontSize: 14,
+          }}
+        >
+          Already have an account?{" "}
+          <Typography
+            component={Link}
+            to="/login"
+            sx={{
+              color: "blue",
+              textDecoration: "none",
+              fontWeight: 500,
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            Login
+          </Typography>
+        </Typography>
       </Form>
     </Box>
   );
