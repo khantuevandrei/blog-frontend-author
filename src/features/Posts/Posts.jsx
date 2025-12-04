@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { Box, Typography, Button } from "@mui/material";
 import PostsList from "../../components/PostsList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import AlertMessage from "../../components/AlertMessage";
+import GenericButton from "../../components/GenericButton";
 
 export default function Posts() {
+  const navigate = useNavigate();
   const { user, token } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -41,7 +43,15 @@ export default function Posts() {
   if (loading) return <LoadingOverlay />;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        flexGrow: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        my: 6,
+      }}
+    >
       <Typography
         variant="h5"
         sx={{
@@ -56,19 +66,8 @@ export default function Posts() {
         Your Posts:
       </Typography>
       <PostsList posts={posts} />
-      <Box width="100%" display="flex" justifyContent="center" mt={2} mb={6}>
-        <Button
-          component={Link}
-          to="/new"
-          variant="contained"
-          sx={{
-            bgcolor: "#1e1e1e",
-            color: "white",
-            "&:hover": { bgcolor: "#4d4d4d" },
-          }}
-        >
-          New post
-        </Button>
+      <Box width="100%" display="flex" justifyContent="center">
+        <GenericButton name="New post" onClick={() => navigate("/new")} />
       </Box>
       {error && <AlertMessage type="error">{error}</AlertMessage>}
     </Box>
