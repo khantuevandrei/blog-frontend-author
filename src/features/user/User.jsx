@@ -7,9 +7,12 @@ import UsernameChecklist from "../../components/UsernameChecklist";
 import PasswordChecklist from "../../components/PasswordChecklist";
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router";
 import { Box, Collapse } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 
 export default function User() {
+  const navigate = useNavigate();
   const { user, token, login } = useContext(AuthContext);
   const [error, setError] = useState({
     username: null,
@@ -169,8 +172,22 @@ export default function User() {
         justifyContent: "center",
         flexGrow: 1,
         gap: 4,
+        position: "relative",
       }}
     >
+      <ArrowBack
+        onClick={() => navigate("/")}
+        sx={{
+          position: "absolute",
+          top: 16,
+          left: 16,
+          color: "black",
+          fontSize: 40,
+          cursor: "pointer",
+          transition: "color 0.2s",
+          "&:hover": { color: "gray" },
+        }}
+      />
       <Form
         width={400}
         name="Update username"
