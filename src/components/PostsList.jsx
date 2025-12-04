@@ -28,7 +28,7 @@ export default function PostsList({ posts }) {
       {posts.map((post) => (
         <ListItem
           component={Link}
-          to={`/posts/${post.id}`}
+          to={`/${post.id}`}
           key={post.id}
           sx={{
             display: "block",
