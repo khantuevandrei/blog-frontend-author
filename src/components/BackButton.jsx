@@ -22,7 +22,7 @@ export default function BackButton({ onClick }) {
         p: 1.5,
       }}
     >
-      <ArrowBack sx={{ fontSize: 25 }} />
+      <ArrowBack sx={{ fontSize: 20 }} />
     </IconButton>
   );
 }
