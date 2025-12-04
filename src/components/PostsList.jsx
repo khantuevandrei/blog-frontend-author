@@ -28,7 +28,7 @@ export default function PostsList({ posts }) {
       {posts.map((post) => (
         <ListItem
           component={Link}
-          to={`${post.id}`}
+          to={`/posts/${post.id}`}
           key={post.id}
           sx={{
             display: "block",
@@ -42,7 +42,12 @@ export default function PostsList({ posts }) {
         >
           <Typography
             variant="h6"
-            sx={{ textDecoration: "none", color: "#0068bdff", fontWeight: 500 }}
+            sx={{
+              textDecoration: "none",
+              color: "black",
+              fontWeight: 500,
+              mb: 2,
+            }}
           >
             {post.title}
           </Typography>
