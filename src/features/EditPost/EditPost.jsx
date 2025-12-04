@@ -3,7 +3,6 @@ import { ArrowBack } from "@mui/icons-material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useParams, useNavigate } from "react-router-dom";
-import GenericButton from "../../components/GenericButton";
 import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
 import LoadingOverlay from "../../components/LoadingOverlay";

@@ -8,7 +8,7 @@ import GenericButton from "../../components/GenericButton";
 import AlertMessage from "../../components/AlertMessage";
 import MetaLine from "../../components/MetaLine";
 import Comment from "../../components/Comment";
-import ErrorPage from "../errorPage/ErrorPage";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 export default function Post() {
   const navigate = useNavigate();

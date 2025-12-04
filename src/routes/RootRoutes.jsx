@@ -2,16 +2,16 @@ import { lazy, useContext } from "react";
 import { useRoutes } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import App from "../App";
-import Posts from "../features/posts/Posts";
+import Posts from "../features/Posts/Posts";
 import RequireAuth from "../components/RequireAuth";
 
-const ErrorPage = lazy(() => import("../features/errorPage/ErrorPage"));
+const ErrorPage = lazy(() => import("../features/ErrorPage/ErrorPage"));
 const Register = lazy(() => import("../features/auth/Register"));
 const Login = lazy(() => import("../features/auth/Login"));
-const User = lazy(() => import("../features/user/User"));
-const NewPost = lazy(() => import("../features/newPost/NewPost"));
-const Post = lazy(() => import("../features/post/Post"));
-const EditPost = lazy(() => import("../features/edit/EditPost"));
+const UpdateUser = lazy(() => import("../features/UpdateUser/UpdateUser"));
+const NewPost = lazy(() => import("../features/NewPost/NewPost"));
+const Post = lazy(() => import("../features/Post/Post"));
+const EditPost = lazy(() => import("../features/editPost/EditPost"));
 
 export default function RootRoutes() {
   const { user } = useContext(AuthContext);
@@ -30,7 +30,7 @@ export default function RootRoutes() {
             },
             {
               path: "me",
-              element: <User />,
+              element: <UpdateUser />,
             },
             {
               path: "new",

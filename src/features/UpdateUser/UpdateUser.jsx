@@ -11,7 +11,7 @@ import { useNavigate } from "react-router";
 import { Box, Collapse } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 
-export default function User() {
+export default function UpdateUser() {
   const navigate = useNavigate();
   const { user, token, login } = useContext(AuthContext);
   const [error, setError] = useState({
