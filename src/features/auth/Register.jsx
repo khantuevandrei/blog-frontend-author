@@ -4,14 +4,14 @@ import { Box } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
-import ProgressBar from "../../components/ProgressBar";
-import FieldsChecklist from "../../components/FieldsChecklist";
+import UsernameChecklist from "../../components/UsernameChecklist";
+import PasswordChecklist from "../../components/PasswordChecklist";
 import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ username: null, password: null });
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -24,6 +24,11 @@ export default function Register() {
     validChars: /^[A-Za-z0-9_]+$/,
   };
 
+  const usernameValidations = {
+    length: usernameRegex.length.test(form.username),
+    validChars: usernameRegex.validChars.test(form.username),
+  };
+
   const passwordRegex = {
     lowercase: /[a-z]/,
     uppercase: /[A-Z]/,
@@ -32,10 +37,8 @@ export default function Register() {
     length: /.{8,}/,
   };
 
-  const validations = {
-    usernameLength: usernameRegex.length.test(form.username),
-    validChars: usernameRegex.validChars.test(form.username),
-    passLength: passwordRegex.length.test(form.password),
+  const passwordValidations = {
+    length: passwordRegex.length.test(form.password),
     lowercase: passwordRegex.lowercase.test(form.password),
     uppercase: passwordRegex.uppercase.test(form.password),
     number: passwordRegex.number.test(form.password),
@@ -43,18 +46,30 @@ export default function Register() {
     passwordsMatch: form.password && form.password === form.confirmPassword,
   };
 
-  const handleChange = (e) => {
+  function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value.trim() });
-  };
+  }
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setError(null);
+    setError({ username: null, password: null });
     setLoading(true);
 
-    if (Object.values(validations).some((v) => !v)) {
+    if (Object.values(usernameValidations).some((v) => !v)) {
       setLoading(false);
-      setError("Please fix the validation errors.");
+      setError((prev) => ({
+        ...prev,
+        username: "Please fix username validation errors",
+      }));
+      return;
+    }
+
+    if (Object.values(passwordValidations).some((v) => !v)) {
+      setLoading(false);
+      setError((prev) => ({
+        ...prev,
+        password: "Please fix password validation errors",
+      }));
       return;
     }
 
@@ -80,7 +95,7 @@ export default function Register() {
     } catch {
       setError("Network error");
     }
-  };
+  }
 
   return (
     <Box
@@ -98,6 +113,10 @@ export default function Register() {
           value={form.username}
           onChange={handleChange}
         />
+        <UsernameChecklist validations={usernameValidations} />
+        {error.username && (
+          <AlertMessage type="error">{error.username}</AlertMessage>
+        )}
         <PasswordField
           label="Password"
           name="password"
@@ -110,10 +129,11 @@ export default function Register() {
           value={form.confirmPassword}
           onChange={handleChange}
         />
-        <ProgressBar validations={validations} />
-        <FieldsChecklist validations={validations} />
+        <PasswordChecklist validations={passwordValidations} />
         <FormButton name="Register" disabled={loading} />
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
+        {error.password && (
+          <AlertMessage type="error">{error.password}</AlertMessage>
+        )}
       </Form>
     </Box>
   );
