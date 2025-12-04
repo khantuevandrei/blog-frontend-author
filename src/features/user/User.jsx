@@ -3,9 +3,11 @@ import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
 import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
+import UsernameChecklist from "../../components/UsernameChecklist";
+import PasswordChecklist from "../../components/PasswordChecklist";
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 
 export default function User() {
   const { user, token, login } = useContext(AuthContext);
@@ -27,6 +29,33 @@ export default function User() {
     confirmPassword: "",
   });
 
+  const usernameRegex = {
+    length: /^.{3,20}$/,
+    validChars: /^[A-Za-z0-9_]+$/,
+  };
+
+  const usernameValidations = {
+    length: usernameRegex.length.test(form.username),
+    validChars: usernameRegex.validChars.test(form.username),
+  };
+
+  const passwordRegex = {
+    lowercase: /[a-z]/,
+    uppercase: /[A-Z]/,
+    number: /\d/,
+    symbol: /[!@#$%^&*()_\-+=[\]{};:"\\|,.<>/?]/,
+    length: /.{8,}/,
+  };
+
+  const passwordValidations = {
+    length: passwordRegex.length.test(form.password),
+    lowercase: passwordRegex.lowercase.test(form.password),
+    uppercase: passwordRegex.uppercase.test(form.password),
+    number: passwordRegex.number.test(form.password),
+    symbol: passwordRegex.symbol.test(form.password),
+    passwordsMatch: form.password && form.password === form.confirmPassword,
+  };
+
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value.trim() });
   }
@@ -37,8 +66,12 @@ export default function User() {
     setError((prev) => ({ ...prev, username: null }));
     setSuccess((prev) => ({ ...prev, username: null }));
 
-    if (!form.username) {
-      setError((prev) => ({ ...prev, username: "Username cannot be empty" }));
+    if (Object.values(usernameValidations).some((v) => !v)) {
+      setLoading(false);
+      setError((prev) => ({
+        ...prev,
+        username: "Please fix username validation errors",
+      }));
       return;
     }
 
@@ -80,8 +113,12 @@ export default function User() {
     setError((prev) => ({ ...prev, password: null }));
     setSuccess((prev) => ({ ...prev, password: null }));
 
-    if (!form.password) {
-      setError((prev) => ({ ...prev, password: "Password cannot be empty" }));
+    if (Object.values(passwordValidations).some((v) => !v)) {
+      setLoading(false);
+      setError((prev) => ({
+        ...prev,
+        password: "Please fix password validation errors",
+      }));
       return;
     }
 
@@ -147,13 +184,18 @@ export default function User() {
           onChange={handleChange}
           required={true}
         />
-        <FormButton name="Update" disabled={loading.username} />
+
+        <Collapse in={Boolean(form.username)} timeout={300}>
+          <UsernameChecklist validations={usernameValidations} />
+        </Collapse>
+
         {error.username && (
           <AlertMessage type="error">{error.username}</AlertMessage>
         )}
         {success.username && (
           <AlertMessage type="success">{success.username}</AlertMessage>
         )}
+        <FormButton name="Update" disabled={loading.username} />
       </Form>
       <Form
         width={400}
@@ -175,13 +217,20 @@ export default function User() {
           onChange={handleChange}
           required={true}
         />
-        <FormButton name="Update" disabled={loading.password} />
+
+        <Collapse
+          in={Boolean(form.password || form.confirmPassword)}
+          timeout={300}
+        >
+          <PasswordChecklist validations={passwordValidations} />
+        </Collapse>
         {error.password && (
           <AlertMessage type="error">{error.password}</AlertMessage>
         )}
         {success.password && (
           <AlertMessage type="success">{success.password}</AlertMessage>
         )}
+        <FormButton name="Update" disabled={loading.password} />
       </Form>
     </Box>
   );
