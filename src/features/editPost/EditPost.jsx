@@ -109,13 +109,13 @@ export default function EditPost() {
       }}
     >
       <ArrowBack
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(`/${postId}`)}
         sx={{
           position: "absolute",
           top: 16,
           left: 16,
           color: "black",
-          fontSize: 40, // slightly larger for visibility
+          fontSize: 40,
           cursor: "pointer",
           transition: "color 0.2s",
           "&:hover": { color: "gray" },
