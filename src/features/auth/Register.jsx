@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -82,29 +83,38 @@ export default function Register() {
   };
 
   return (
-    <Form width={400} name="Register" onSubmit={handleSubmit}>
-      <FormField
-        label="Username"
-        name="username"
-        value={form.username}
-        onChange={handleChange}
-      />
-      <PasswordField
-        label="Password"
-        name="password"
-        value={form.password}
-        onChange={handleChange}
-      />
-      <PasswordField
-        label="Confirm Password"
-        name="confirmPassword"
-        value={form.confirmPassword}
-        onChange={handleChange}
-      />
-      <ProgressBar validations={validations} />
-      <FieldsChecklist validations={validations} />
-      <FormButton name="Register" disabled={loading} />
-      {error && <AlertMessage type="error">{error}</AlertMessage>}
-    </Form>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        flexGrow: 1,
+      }}
+    >
+      <Form width={400} name="Register" onSubmit={handleSubmit}>
+        <FormField
+          label="Username"
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+        />
+        <PasswordField
+          label="Password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+        />
+        <PasswordField
+          label="Confirm Password"
+          name="confirmPassword"
+          value={form.confirmPassword}
+          onChange={handleChange}
+        />
+        <ProgressBar validations={validations} />
+        <FieldsChecklist validations={validations} />
+        <FormButton name="Register" disabled={loading} />
+        {error && <AlertMessage type="error">{error}</AlertMessage>}
+      </Form>
+    </Box>
   );
 }

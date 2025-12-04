@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import { Box } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -51,21 +52,30 @@ export default function Login() {
   }
 
   return (
-    <Form width={400} name="Login" onSubmit={handleSubmit}>
-      <FormField
-        label="Username"
-        name="username"
-        value={form.username}
-        onChange={handleChange}
-      />
-      <PasswordField
-        label="Password"
-        name="password"
-        value={form.password}
-        onChange={handleChange}
-      />
-      <FormButton name="Login" disabled={loading} />
-      {error && <AlertMessage type="error">{error}</AlertMessage>}
-    </Form>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        flexGrow: 1,
+      }}
+    >
+      <Form width={400} name="Login" onSubmit={handleSubmit}>
+        <FormField
+          label="Username"
+          name="username"
+          value={form.username}
+          onChange={handleChange}
+        />
+        <PasswordField
+          label="Password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+        />
+        <FormButton name="Login" disabled={loading} />
+        {error && <AlertMessage type="error">{error}</AlertMessage>}
+      </Form>
+    </Box>
   );
 }
