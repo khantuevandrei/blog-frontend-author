@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -75,6 +75,28 @@ export default function Login() {
         />
         <FormButton name="Login" disabled={loading} />
         {error && <AlertMessage type="error">{error}</AlertMessage>}
+        <Typography
+          sx={{
+            mt: 2,
+            textAlign: "center",
+            color: "#333",
+            fontSize: 14,
+          }}
+        >
+          Don't have an account?{" "}
+          <Typography
+            component={Link}
+            to="/register"
+            sx={{
+              color: "blue",
+              textDecoration: "none",
+              fontWeight: 500,
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            Register
+          </Typography>
+        </Typography>
       </Form>
     </Box>
   );
