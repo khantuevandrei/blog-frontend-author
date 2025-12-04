@@ -14,12 +14,12 @@ export default function FormButton({ name, disabled }) {
         textTransform: "none",
         fontWeight: 500,
         fontSize: 15,
-        "&:hover": { bgcolor: "#333" },
-        "&:disabled": { bgcolor: "#2a2a2a", color: "#888" },
+        height: 38,
+        "&:hover": { bgcolor: "#2a2a2a" },
         transition: "background 0.3s",
       }}
     >
-      {disabled ? <CircularProgress size={20} color="inherit" /> : name}
+      {disabled ? <CircularProgress size={25} color="inherit" /> : name}
     </Button>
   );
 }
