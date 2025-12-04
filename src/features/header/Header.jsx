@@ -1,9 +1,10 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
   const { user, logout } = useContext(AuthContext);
 
   return (
@@ -33,7 +34,14 @@ export default function Header() {
                   {user.username}
                 </Link>
               </Typography>
-              <Button color="inherit" onClick={logout} sx={{ ml: 2 }}>
+              <Button
+                color="inherit"
+                onClick={() => {
+                  logout();
+                  navigate("/");
+                }}
+                sx={{ ml: 2 }}
+              >
                 Logout
               </Button>
             </>
