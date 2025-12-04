@@ -7,8 +7,8 @@ import { Outlet } from "react-router";
 import { Suspense } from "react";
 import { Box } from "@mui/material";
 import LoadingOverlay from "./components/LoadingOverlay";
-import Header from "./features/header/Header";
-import Footer from "./features/footer/Footer";
+import Header from "./features/Header/Header";
+import Footer from "./features/Footer/Footer";
 
 function App() {
   return (
