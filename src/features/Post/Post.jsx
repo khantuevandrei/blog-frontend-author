@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Paper, Typography, Box } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
 import { AuthContext } from "../../context/AuthProvider";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import GenericButton from "../../components/GenericButton";
+import BackButton from "../../components/BackButton";
 import AlertMessage from "../../components/AlertMessage";
 import MetaLine from "../../components/MetaLine";
 import Comment from "../../components/Comment";
@@ -193,19 +193,7 @@ export default function Post() {
         position: "relative",
       }}
     >
-      <ArrowBack
-        onClick={() => navigate(-1)}
-        sx={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          color: "black",
-          fontSize: 40,
-          cursor: "pointer",
-          transition: "color 0.2s",
-          "&:hover": { color: "gray" },
-        }}
-      />
+      <BackButton onClick={() => navigate("/")} />
       {/* Post */}
       <Paper
         elevation={2}

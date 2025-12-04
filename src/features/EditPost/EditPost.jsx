@@ -1,9 +1,9 @@
-import { Box, TextField, Typography, Paper, IconButton } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
+import { Box, TextField, Typography, Paper } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useParams, useNavigate } from "react-router-dom";
 import FormButton from "../../components/FormButton";
+import BackButton from "../../components/BackButton";
 import AlertMessage from "../../components/AlertMessage";
 import LoadingOverlay from "../../components/LoadingOverlay";
 
@@ -107,19 +107,7 @@ export default function EditPost() {
         position: "relative",
       }}
     >
-      <ArrowBack
-        onClick={() => navigate(`/${postId}`)}
-        sx={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          color: "black",
-          fontSize: 40,
-          cursor: "pointer",
-          transition: "color 0.2s",
-          "&:hover": { color: "gray" },
-        }}
-      />
+      <BackButton onClick={() => navigate(`/${postId}`)} />
       <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
         <Typography variant="h5" mb={2}>
           Update Post

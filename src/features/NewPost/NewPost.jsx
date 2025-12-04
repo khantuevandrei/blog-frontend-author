@@ -1,9 +1,9 @@
 import { Box, TextField, Typography, Paper } from "@mui/material";
-import { ArrowBack } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
 import FormButton from "../../components/FormButton";
+import BackButton from "../../components/BackButton";
 import AlertMessage from "../../components/AlertMessage";
 
 export default function NewPost() {
@@ -65,19 +65,7 @@ export default function NewPost() {
         position: "relative",
       }}
     >
-      <ArrowBack
-        onClick={() => navigate("/")}
-        sx={{
-          position: "absolute",
-          top: 16,
-          left: 16,
-          color: "black",
-          fontSize: 40,
-          cursor: "pointer",
-          transition: "color 0.2s",
-          "&:hover": { color: "gray" },
-        }}
-      />
+      <BackButton onClick={() => navigate("/")} />
       <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
         <Typography variant="h5" mb={2}>
           Create New Post
