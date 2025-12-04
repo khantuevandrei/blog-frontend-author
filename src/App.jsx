@@ -26,7 +26,7 @@ function App() {
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          backgroundImage: `url('../../../public/bg.jpg')`,
+          backgroundImage: `url('/bg.jpg')`,
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
