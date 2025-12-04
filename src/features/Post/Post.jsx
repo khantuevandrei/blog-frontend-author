@@ -94,7 +94,7 @@ export default function Post() {
         setError(data.message) || "Publishing failed";
         return;
       }
-      window.location.reload();
+      setPost(data);
     } catch {
       setError("Network error");
     } finally {
@@ -218,11 +218,10 @@ export default function Post() {
           <MetaLine label="Updated" value={post.updated_at} />
         )}
 
-        {post.published ? (
-          <MetaLine label="Published" value={post.published_at} />
-        ) : (
-          <MetaLine label="Not published" />
-        )}
+        <MetaLine
+          label={post.published ? "Published" : "Not published"}
+          value={post.published_at}
+        />
 
         <Typography
           variant="body1"
@@ -236,13 +235,11 @@ export default function Post() {
             name="Edit"
             onClick={() => navigate(`/${postId}/edit`)}
           />
-          {!post.published && (
-            <GenericButton
-              name="Publish"
-              disabled={loading.publish}
-              onClick={handlePublish}
-            />
-          )}
+          <GenericButton
+            name={post.published ? "Unpublish" : "Publish"}
+            disabled={loading.publish}
+            onClick={handlePublish}
+          />
           <GenericButton
             name="Delete"
             disabled={loading.delete}
