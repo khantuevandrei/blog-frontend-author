@@ -53,7 +53,7 @@ export default function Posts() {
       }}
     >
       <Typography
-        variant="h5"
+        variant="h4"
         sx={{
           width: "100%",
           maxWidth: 600,
