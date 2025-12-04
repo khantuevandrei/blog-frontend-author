@@ -3,7 +3,8 @@ import { useRoutes } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import App from "../App";
 import Posts from "../features/Posts/Posts";
-import RequireAuth from "../components/RequireAuth";
+import RequireAuth from "../context/RequireAuth";
+import RedirectIfAuth from "../context/RedirectIfAuth";
 
 const ErrorPage = lazy(() => import("../features/ErrorPage/ErrorPage"));
 const Register = lazy(() => import("../features/Auth/Register"));
@@ -48,11 +49,19 @@ export default function RootRoutes() {
         },
         {
           path: "/register",
-          element: <Register />,
+          element: (
+            <RedirectIfAuth user={user}>
+              <Register />
+            </RedirectIfAuth>
+          ),
         },
         {
           path: "/login",
-          element: <Login />,
+          element: (
+            <RedirectIfAuth user={user}>
+              <Login />
+            </RedirectIfAuth>
+          ),
         },
         {
           path: "*",
