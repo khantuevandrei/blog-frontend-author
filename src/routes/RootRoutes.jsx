@@ -5,6 +5,7 @@ import App from "../App";
 import Posts from "../features/posts/Posts";
 import RequireAuth from "../components/RequireAuth";
 
+const ErrorPage = lazy(() => import("../features/errorPage/ErrorPage"));
 const Register = lazy(() => import("../features/auth/Register"));
 const Login = lazy(() => import("../features/auth/Login"));
 const User = lazy(() => import("../features/user/User"));
@@ -26,6 +27,18 @@ export default function RootRoutes() {
               index: true,
               element: <Posts />,
             },
+            {
+              path: "me",
+              element: <User />,
+            },
+            {
+              path: "new",
+              element: <NewPost />,
+            },
+            {
+              path: ":postId",
+              element: <Post />,
+            },
           ],
         },
         {
@@ -37,16 +50,8 @@ export default function RootRoutes() {
           element: <Login />,
         },
         {
-          path: "/me",
-          element: <User />,
-        },
-        {
-          path: "/new",
-          element: <NewPost />,
-        },
-        {
-          path: ":postId",
-          element: <Post />,
+          path: "*",
+          element: <ErrorPage />,
         },
       ],
     },
