@@ -190,8 +190,22 @@ export default function Post() {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        position: "relative",
       }}
     >
+      <ArrowBack
+        onClick={() => navigate(-1)}
+        sx={{
+          position: "absolute",
+          top: 16,
+          left: 16,
+          color: "black",
+          fontSize: 40,
+          cursor: "pointer",
+          transition: "color 0.2s",
+          "&:hover": { color: "gray" },
+        }}
+      />
       {/* Post */}
       <Paper
         elevation={2}
@@ -231,20 +245,9 @@ export default function Post() {
 
         <Box sx={{ display: "flex", gap: 1 }}>
           <GenericButton
-            name={
-              <>
-                <ArrowBack style={{ marginRight: 6 }} />
-                Back
-              </>
-            }
-            onClick={() => navigate("/")}
-          />
-
-          <GenericButton
             name="Edit"
             onClick={() => navigate(`/${postId}/edit`)}
           />
-
           {!post.published && (
             <GenericButton
               name="Publish"
@@ -252,7 +255,6 @@ export default function Post() {
               onClick={handlePublish}
             />
           )}
-
           <GenericButton
             name="Delete"
             disabled={loading.delete}
