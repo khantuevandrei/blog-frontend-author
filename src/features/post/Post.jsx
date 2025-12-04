@@ -8,6 +8,7 @@ import GenericButton from "../../components/GenericButton";
 import AlertMessage from "../../components/AlertMessage";
 import MetaLine from "../../components/MetaLine";
 import Comment from "../../components/Comment";
+import ErrorPage from "../errorPage/ErrorPage";
 
 export default function Post() {
   const navigate = useNavigate();
@@ -177,6 +178,8 @@ export default function Post() {
   }
 
   if (loading.overlay) return <LoadingOverlay />;
+
+  if (error) return <ErrorPage message={error} />;
 
   return (
     <Box
