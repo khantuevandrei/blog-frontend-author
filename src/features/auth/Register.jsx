@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -11,7 +11,11 @@ import AlertMessage from "../../components/AlertMessage";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [error, setError] = useState({ username: null, password: null });
+  const [error, setError] = useState({
+    username: null,
+    password: null,
+    response: null,
+  });
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",
@@ -52,7 +56,7 @@ export default function Register() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setError({ username: null, password: null });
+    setError({ username: null, password: null, response: null });
     setLoading(true);
 
     if (Object.values(usernameValidations).some((v) => !v)) {
@@ -86,14 +90,20 @@ export default function Register() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message || "Registration failed");
+        setError((prev) => ({
+          ...prev,
+          response: data.message || "Registration failed",
+        }));
         setLoading(false);
         return;
       }
 
       navigate("/login");
     } catch {
-      setError("Network error");
+      setError((prev) => ({
+        ...prev,
+        response: "Network error",
+      }));
     }
   }
 
@@ -113,7 +123,9 @@ export default function Register() {
           value={form.username}
           onChange={handleChange}
         />
-        <UsernameChecklist validations={usernameValidations} />
+        <Collapse in={Boolean(form.username)} timeout={300}>
+          <UsernameChecklist validations={usernameValidations} />
+        </Collapse>
         {error.username && (
           <AlertMessage type="error">{error.username}</AlertMessage>
         )}
@@ -129,10 +141,15 @@ export default function Register() {
           value={form.confirmPassword}
           onChange={handleChange}
         />
-        <PasswordChecklist validations={passwordValidations} />
-        <FormButton name="Register" disabled={loading} />
+        <Collapse in={Boolean(form.password)} timeout={300}>
+          <PasswordChecklist validations={passwordValidations} />
+        </Collapse>
         {error.password && (
           <AlertMessage type="error">{error.password}</AlertMessage>
+        )}
+        <FormButton name="Register" disabled={loading} />
+        {error.response && (
+          <AlertMessage type="error">{error.response}</AlertMessage>
         )}
       </Form>
     </Box>
