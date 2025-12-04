@@ -141,7 +141,10 @@ export default function Register() {
           value={form.confirmPassword}
           onChange={handleChange}
         />
-        <Collapse in={Boolean(form.password)} timeout={300}>
+        <Collapse
+          in={Boolean(form.password || form.confirmPassword)}
+          timeout={300}
+        >
           <PasswordChecklist validations={passwordValidations} />
         </Collapse>
         {error.password && (
