@@ -6,12 +6,12 @@ import Posts from "../features/Posts/Posts";
 import RequireAuth from "../components/RequireAuth";
 
 const ErrorPage = lazy(() => import("../features/ErrorPage/ErrorPage"));
-const Register = lazy(() => import("../features/auth/Register"));
-const Login = lazy(() => import("../features/auth/Login"));
+const Register = lazy(() => import("../features/Auth/Register"));
+const Login = lazy(() => import("../features/Auth/Login"));
 const UpdateUser = lazy(() => import("../features/UpdateUser/UpdateUser"));
 const NewPost = lazy(() => import("../features/NewPost/NewPost"));
 const Post = lazy(() => import("../features/Post/Post"));
-const EditPost = lazy(() => import("../features/editPost/EditPost"));
+const EditPost = lazy(() => import("../features/EditPost/EditPost"));
 
 export default function RootRoutes() {
   const { user } = useContext(AuthContext);
