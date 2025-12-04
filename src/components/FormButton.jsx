@@ -10,7 +10,12 @@ export default function FormButton({ name, disabled }) {
       sx={{
         mt: 2,
         bgcolor: "#1e1e1e",
-        "&:hover": { bgcolor: "#4d4d4dff" },
+        color: "#fff",
+        textTransform: "none",
+        fontWeight: 500,
+        "&:hover": { bgcolor: "#333" },
+        "&:disabled": { bgcolor: "#2a2a2a", color: "#888" },
+        transition: "background 0.3s",
       }}
     >
       {disabled ? <CircularProgress size={20} color="inherit" /> : name}
