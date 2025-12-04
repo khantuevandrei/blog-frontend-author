@@ -1,4 +1,5 @@
 import { Box, TextField, Typography, Paper } from "@mui/material";
+import { ArrowBack } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
@@ -61,8 +62,22 @@ export default function NewPost() {
         flexGrow: 1,
         minHeight: "100%",
         p: 2,
+        position: "relative",
       }}
     >
+      <ArrowBack
+        onClick={() => navigate("/")}
+        sx={{
+          position: "absolute",
+          top: 16,
+          left: 16,
+          color: "black",
+          fontSize: 40,
+          cursor: "pointer",
+          transition: "color 0.2s",
+          "&:hover": { color: "gray" },
+        }}
+      />
       <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
         <Typography variant="h5" mb={2}>
           Create New Post
