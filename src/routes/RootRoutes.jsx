@@ -11,6 +11,7 @@ const Login = lazy(() => import("../features/auth/Login"));
 const User = lazy(() => import("../features/user/User"));
 const NewPost = lazy(() => import("../features/newPost/NewPost"));
 const Post = lazy(() => import("../features/post/Post"));
+const EditPost = lazy(() => import("../features/edit/EditPost"));
 
 export default function RootRoutes() {
   const { user } = useContext(AuthContext);
@@ -38,6 +39,10 @@ export default function RootRoutes() {
             {
               path: ":postId",
               element: <Post />,
+            },
+            {
+              path: ":postId/edit",
+              element: <EditPost />,
             },
           ],
         },
