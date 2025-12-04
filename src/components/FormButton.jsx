@@ -13,6 +13,7 @@ export default function FormButton({ name, disabled }) {
         color: "#fff",
         textTransform: "none",
         fontWeight: 500,
+        fontSize: 15,
         "&:hover": { bgcolor: "#333" },
         "&:disabled": { bgcolor: "#2a2a2a", color: "#888" },
         transition: "background 0.3s",
