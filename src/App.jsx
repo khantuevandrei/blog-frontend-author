@@ -28,6 +28,7 @@ function App() {
           flexDirection: "column",
           backgroundImage: `url('../../../public/bg.jpg')`,
           backgroundSize: "cover",
+          backgroundAttachment: "fixed",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
