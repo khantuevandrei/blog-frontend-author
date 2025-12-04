@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 export default function MetaLine({ label, value }) {
   return (
     <Typography variant="body2" sx={{ color: "gray" }}>
-      {label}:{" "}
+      {label}{" "}
       {value
         ? new Date(value).toLocaleString(undefined, {
             year: "numeric",
