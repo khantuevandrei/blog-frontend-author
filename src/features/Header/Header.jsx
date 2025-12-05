@@ -51,7 +51,10 @@ export default function Header() {
           </Tooltip>
           {user ? (
             <>
-              <Typography variant="body1" sx={{ fontSize: 20 }}>
+              <Typography
+                variant="body1"
+                sx={{ fontSize: 20, color: theme.palette.text.primary }}
+              >
                 Hello,{" "}
                 <Link
                   to={"/me"}
