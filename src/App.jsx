@@ -1,11 +1,12 @@
 import { Outlet } from "react-router";
 import { Suspense } from "react";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import LoadingOverlay from "./components/LoadingOverlay";
 import Header from "./features/Header/Header";
 import Footer from "./features/Footer/Footer";
 
 function App() {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -21,11 +22,7 @@ function App() {
           flexGrow: 1,
           display: "flex",
           flexDirection: "column",
-          backgroundImage: `url('/bg.jpg')`,
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          background: theme.palette.background.image,
         }}
       >
         <Suspense fallback={<LoadingOverlay />}>
