@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import PostsList from "../../components/PostsList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import AlertMessage from "../../components/AlertMessage";
@@ -9,6 +9,7 @@ import GenericButton from "../../components/GenericButton";
 
 export default function Posts() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const { user, token } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -49,6 +50,7 @@ export default function Posts() {
         flexGrow: 1,
         flexDirection: "column",
         justifyContent: "center",
+        alignItems: "center",
         my: 6,
       }}
     >
@@ -61,12 +63,13 @@ export default function Posts() {
           my: 4,
           fontWeight: 700,
           textAlign: "center",
+          color: theme.palette.text.primary,
         }}
       >
         Your Posts:
       </Typography>
       <PostsList posts={posts} />
-      <Box width="100%" display="flex" justifyContent="center">
+      <Box display="flex" justifyContent="center">
         <GenericButton name="New post" onClick={() => navigate("/new")} />
       </Box>
       {error && <AlertMessage type="error">{error}</AlertMessage>}

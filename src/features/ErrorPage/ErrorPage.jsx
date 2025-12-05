@@ -1,9 +1,10 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import GenericButton from "../../components/GenericButton";
 
 export default function ErrorPage({ code = 404, message = "Page not found" }) {
   const navigate = useNavigate();
+  const theme = useTheme();
 
   return (
     <Box
@@ -20,14 +21,23 @@ export default function ErrorPage({ code = 404, message = "Page not found" }) {
       <Typography
         variant="h1"
         component="h1"
-        sx={{ fontSize: 100, fontWeight: "bold" }}
+        sx={{
+          fontSize: 100,
+          fontWeight: 600,
+          color: theme.palette.text.primary,
+        }}
       >
         {code}
       </Typography>
-      <Typography variant="h5" sx={{ mb: 3 }}>
+      <Typography
+        variant="h5"
+        sx={{ mb: 3, color: theme.palette.text.primary }}
+      >
         {message}
       </Typography>
-      <GenericButton name="Home" onClick={() => navigate("/")} />
+      <Box>
+        <GenericButton name="Home" onClick={() => navigate("/")} />
+      </Box>
     </Box>
   );
 }

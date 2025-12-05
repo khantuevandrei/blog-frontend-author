@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -10,6 +10,7 @@ import AlertMessage from "../../components/AlertMessage";
 
 export default function Login() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const { login } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -79,7 +80,7 @@ export default function Login() {
           sx={{
             mt: 2,
             textAlign: "center",
-            color: "#333",
+            color: theme.palette.text.secondary,
             fontSize: 14,
           }}
         >
@@ -88,10 +89,12 @@ export default function Login() {
             component={Link}
             to="/register"
             sx={{
-              color: "blue",
+              color: theme.palette.primary.main,
               textDecoration: "none",
-              fontWeight: 500,
-              "&:hover": { textDecoration: "underline" },
+              fontWeight: 600,
+              "&:hover": {
+                color: theme.palette.primary.light,
+              },
             }}
           >
             Register

@@ -109,7 +109,7 @@ export default function EditPost() {
     >
       <BackButton onClick={() => navigate(`/${postId}`)} />
       <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
-        <Typography variant="h5" mb={2}>
+        <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>
           Update Post
         </Typography>
 
@@ -117,6 +117,7 @@ export default function EditPost() {
           <TextField
             label="Title"
             name="title"
+            margin="normal"
             value={form.title}
             onChange={handleChange}
             fullWidth
@@ -127,6 +128,7 @@ export default function EditPost() {
           <TextField
             label="Body"
             name="body"
+            margin="normal"
             value={form.body}
             onChange={handleChange}
             fullWidth

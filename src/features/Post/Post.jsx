@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography, Box, useTheme } from "@mui/material";
 import { AuthContext } from "../../context/AuthProvider";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import GenericButton from "../../components/GenericButton";
@@ -12,6 +12,7 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 
 export default function Post() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const { postId } = useParams();
   const { token } = useContext(AuthContext);
 
@@ -208,7 +209,10 @@ export default function Post() {
           {post.title}
         </Typography>
 
-        <Typography variant="subtitle1" sx={{ color: "gray", mb: 1 }}>
+        <Typography
+          variant="subtitle1"
+          sx={{ color: theme.palette.text.secondary, mb: 1 }}
+        >
           by <strong>@{post.author.username}</strong>
         </Typography>
 
@@ -225,12 +229,12 @@ export default function Post() {
 
         <Typography
           variant="body1"
-          sx={{ whiteSpace: "pre-line", mt: 4, mb: 4 }}
+          sx={{ whiteSpace: "pre-line", mt: 4, mb: 2 }}
         >
           {post.body}
         </Typography>
 
-        <Box sx={{ display: "flex", gap: 1 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", gap: 1 }}>
           <GenericButton
             name="Edit"
             onClick={() => navigate(`/${postId}/edit`)}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Box, Collapse, Typography } from "@mui/material";
+import { Box, Collapse, Typography, useTheme } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
@@ -11,6 +11,7 @@ import AlertMessage from "../../components/AlertMessage";
 
 export default function Register() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [error, setError] = useState({
     username: null,
     password: null,
@@ -158,7 +159,7 @@ export default function Register() {
           sx={{
             mt: 2,
             textAlign: "center",
-            color: "#333",
+            color: theme.palette.text.secondary,
             fontSize: 14,
           }}
         >
@@ -167,10 +168,12 @@ export default function Register() {
             component={Link}
             to="/login"
             sx={{
-              color: "blue",
+              color: theme.palette.primary.main,
               textDecoration: "none",
-              fontWeight: 500,
-              "&:hover": { textDecoration: "underline" },
+              fontWeight: 600,
+              "&:hover": {
+                color: theme.palette.primary.light,
+              },
             }}
           >
             Login
