@@ -1,6 +1,8 @@
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, useTheme } from "@mui/material";
 
 export default function FormButton({ name, disabled }) {
+  const theme = useTheme();
+
   return (
     <Button
       type="submit"
@@ -9,13 +11,13 @@ export default function FormButton({ name, disabled }) {
       fullWidth
       sx={{
         mt: 2,
-        bgcolor: "#1e1e1e",
-        color: "#fff",
+        bgcolor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
         textTransform: "none",
         fontWeight: 500,
-        fontSize: 15,
+        fontSize: 18,
         height: 38,
-        "&:hover": { bgcolor: "#333" },
+        "&:hover": { bgcolor: theme.palette.primary.light },
         transition: "background 0.3s",
       }}
     >

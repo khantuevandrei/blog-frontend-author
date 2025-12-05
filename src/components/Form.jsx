@@ -1,4 +1,4 @@
-import { Paper, Typography, Box } from "@mui/material";
+import { Paper, Typography, Box, useTheme } from "@mui/material";
 
 export default function Form({
   width,
@@ -8,6 +8,8 @@ export default function Form({
   mt = 4,
   mb = 4,
 }) {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -18,8 +20,17 @@ export default function Form({
         mt: mt,
       }}
     >
-      <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: { width } }}>
-        <Typography variant="h5" mb={2}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          width: "100%",
+          maxWidth: { width },
+          bgcolor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+        }}
+      >
+        <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>
           {name}
         </Typography>
         <Box component="form" onSubmit={onSubmit}>

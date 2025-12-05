@@ -1,8 +1,10 @@
-import { Typography } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 
 export default function MetaLine({ label, value }) {
+  const theme = useTheme();
+
   return (
-    <Typography variant="body2" sx={{ color: "gray" }}>
+    <Typography variant="body2" sx={{ color: theme.palette.text.secondary }}>
       {label}{" "}
       {value
         ? new Date(value).toLocaleString(undefined, {

@@ -1,6 +1,8 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, useTheme } from "@mui/material";
 
 export default function LoadingOverlay() {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -9,14 +11,25 @@ export default function LoadingOverlay() {
         left: 0,
         width: "100vw",
         height: "100vh",
-        bgcolor: "rgba(0,0,0,0.4)",
+        bgcolor:
+          theme.palette.mode === "dark"
+            ? "rgba(255,255,255,0.1)" // light overlay for dark mode
+            : "rgba(0,0,0,0.3)", // dark overlay for light mode
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         zIndex: 1300,
       }}
     >
-      <CircularProgress size={60} color="#1e1e1e" />
+      <CircularProgress
+        size={60}
+        sx={{
+          color:
+            theme.palette.mode === "dark"
+              ? theme.palette.primary.light
+              : theme.palette.primary.dark,
+        }}
+      />
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, useTheme } from "@mui/material";
 
 export default function FormField({
   label,
@@ -7,6 +7,8 @@ export default function FormField({
   onChange,
   required = true,
 }) {
+  const theme = useTheme();
+
   return (
     <TextField
       label={label}
@@ -16,6 +18,19 @@ export default function FormField({
       value={value}
       onChange={onChange}
       required={required}
+      variant="outlined"
+      InputLabelProps={{
+        style: { color: theme.palette.text.secondary },
+      }}
+      InputProps={{
+        style: {
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.background.paper,
+        },
+      }}
+      FormHelperTextProps={{
+        style: { color: theme.palette.text.secondary },
+      }}
     />
   );
 }

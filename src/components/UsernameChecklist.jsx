@@ -1,11 +1,19 @@
-import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  useTheme,
+} from "@mui/material";
 import { CheckCircle, Cancel } from "@mui/icons-material";
 import ProgressBar from "./ProgressBar";
 
 export default function UsernameChecklist({ validations }) {
+  const theme = useTheme();
+
   const items = [
-    { label: "Username: 3-20 characters", key: "length" },
-    { label: "Username: only letters, numbers, underscore", key: "validChars" },
+    { label: "3-20 characters", key: "length" },
+    { label: "Only letters, numbers, underscore", key: "validChars" },
   ];
 
   return (
@@ -16,9 +24,23 @@ export default function UsernameChecklist({ validations }) {
           <ListItem key={item.key}>
             <ListItemIcon>
               {validations[item.key] ? (
-                <CheckCircle color="success" />
+                <CheckCircle
+                  sx={(theme) => ({
+                    color:
+                      theme.palette.mode === "dark"
+                        ? theme.palette.success.light
+                        : theme.palette.success.dark,
+                  })}
+                />
               ) : (
-                <Cancel color="error" />
+                <Cancel
+                  sx={{
+                    color:
+                      theme.palette.mode === "dark"
+                        ? theme.palette.error.light
+                        : theme.palette.error.dark,
+                  }}
+                />
               )}
             </ListItemIcon>
             <ListItemText primary={item.label} />

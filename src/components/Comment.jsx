@@ -1,6 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 export default function Comment({ comment, isLast }) {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -13,7 +15,10 @@ export default function Comment({ comment, isLast }) {
         <Typography variant="subtitle1" fontWeight={600}>
           @{comment.author.username}
         </Typography>
-        <Typography variant="caption" sx={{ color: "gray" }}>
+        <Typography
+          variant="caption"
+          sx={{ color: theme.palette.text.secondary }}
+        >
           {new Date(comment.created_at).toLocaleString(undefined, {
             year: "numeric",
             month: "short",
@@ -25,7 +30,7 @@ export default function Comment({ comment, isLast }) {
       </Box>
       <Typography
         variant="body1"
-        sx={{ whiteSpace: "pre-line", color: "#333" }}
+        sx={{ whiteSpace: "pre-line", color: theme.palette.text.primary }}
       >
         {comment.body}
       </Typography>

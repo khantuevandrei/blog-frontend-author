@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, IconButton, InputAdornment } from "@mui/material";
+import { TextField, IconButton, InputAdornment, useTheme } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function PasswordField({
@@ -11,6 +11,7 @@ export default function PasswordField({
 }) {
   const [show, setShow] = useState(false);
   const toggle = () => setShow((prev) => !prev);
+  const theme = useTheme();
 
   return (
     <TextField
@@ -22,7 +23,15 @@ export default function PasswordField({
       value={value}
       onChange={onChange}
       required={required}
+      variant="outlined"
+      InputLabelProps={{
+        style: { color: theme.palette.text.secondary },
+      }}
       InputProps={{
+        style: {
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.background.paper,
+        },
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={toggle} edge="end">
@@ -30,6 +39,9 @@ export default function PasswordField({
             </IconButton>
           </InputAdornment>
         ),
+      }}
+      FormHelperTextProps={{
+        style: { color: theme.palette.text.secondary },
       }}
     />
   );
