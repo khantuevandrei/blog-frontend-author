@@ -186,15 +186,12 @@ export default function Post() {
     <Box
       sx={{
         flexGrow: 1,
-        width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        position: "relative",
       }}
     >
-      <BackButton onClick={() => navigate("/")} />
       {/* Post */}
       <Paper
         elevation={2}
@@ -203,8 +200,10 @@ export default function Post() {
           borderRadius: 3,
           width: 600,
           mt: 6,
+          position: "relative",
         }}
       >
+        <BackButton onClick={() => navigate("/")} />
         <Typography variant="h4" fontWeight={600} mb={2}>
           {post.title}
         </Typography>

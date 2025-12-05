@@ -62,11 +62,14 @@ export default function NewPost() {
         flexGrow: 1,
         minHeight: "100%",
         p: 2,
-        position: "relative",
       }}
     >
-      <BackButton onClick={() => navigate("/")} />
-      <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
+      <Paper
+        elevation={3}
+        sx={{ p: 4, width: "100%", maxWidth: 500, position: "relative" }}
+      >
+        <BackButton onClick={() => navigate("/")} />
+
         <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>
           Create New Post
         </Typography>

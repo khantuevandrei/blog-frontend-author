@@ -9,8 +9,8 @@ export default function BackButton({ onClick }) {
       onClick={onClick}
       sx={{
         position: "absolute",
-        top: 16,
-        left: 16,
+        top: 0,
+        left: -100,
         bgcolor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
         fontSize: 40,

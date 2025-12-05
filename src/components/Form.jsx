@@ -28,6 +28,7 @@ export default function Form({
           maxWidth: { width },
           bgcolor: theme.palette.background.paper,
           color: theme.palette.text.primary,
+          position: "relative",
         }}
       >
         <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>

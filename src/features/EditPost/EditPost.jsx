@@ -103,12 +103,13 @@ export default function EditPost() {
         alignItems: "center",
         flexGrow: 1,
         minHeight: "100%",
-        p: 2,
-        position: "relative",
       }}
     >
-      <BackButton onClick={() => navigate(`/${postId}`)} />
-      <Paper elevation={3} sx={{ p: 4, width: "100%", maxWidth: 500 }}>
+      <Paper
+        elevation={3}
+        sx={{ p: 4, width: "100%", maxWidth: 500, position: "relative" }}
+      >
+        <BackButton onClick={() => navigate(`/${postId}`)} />
         <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>
           Update Post
         </Typography>

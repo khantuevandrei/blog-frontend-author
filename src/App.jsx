@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import { Suspense } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Container, Box, useTheme } from "@mui/material";
 import LoadingOverlay from "./components/LoadingOverlay";
 import Header from "./features/Header/Header";
 import Footer from "./features/Footer/Footer";
@@ -26,7 +26,11 @@ function App() {
         }}
       >
         <Suspense fallback={<LoadingOverlay />}>
-          <Outlet />
+          <Container
+            sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}
+          >
+            <Outlet />
+          </Container>
         </Suspense>
       </Box>
       <Footer />

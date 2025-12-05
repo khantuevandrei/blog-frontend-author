@@ -172,16 +172,16 @@ export default function UpdateUser() {
         justifyContent: "center",
         flexGrow: 1,
         gap: 4,
-        position: "relative",
       }}
     >
-      <BackButton onClick={() => navigate("/")} />
       <Form
         width={400}
         name="Update username"
         onSubmit={handleSubmitUsername}
         mb={0}
       >
+        <BackButton onClick={() => navigate("/")} />
+
         <FormField
           label="New username"
           name="username"
