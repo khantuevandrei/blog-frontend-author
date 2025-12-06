@@ -21,7 +21,8 @@ export default function Header() {
         width: "100%",
         mx: "auto",
         maxWidth: "md",
-        gap: 2,
+        gap: 0,
+        [theme.breakpoints.up("sm")]: { gap: 2 },
       }}
     >
       <Logo />
