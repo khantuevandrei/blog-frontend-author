@@ -1,0 +1,1 @@
+import{b as a,j as e,T as o,L as i}from"./index-D2KaLZNc.js";function p({desc:n,link:r,nav:s}){const t=a();return e.jsxs(o,{sx:{mt:2,textAlign:"center",color:t.palette.text.secondary,fontSize:14},children:[n," ",e.jsx(o,{component:i,to:s,sx:{color:t.palette.primary.main,textDecoration:"none",fontWeight:600,"&:hover":{color:t.palette.primary.light}},children:r})]})}export{p as A};

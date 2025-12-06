@@ -1,0 +1,1 @@
+import{j as t}from"./index-D2KaLZNc.js";import{T as o}from"./FormButton-D_UYJ-45.js";function m({value:r,onChange:e}){return t.jsx(o,{label:"Body",name:"body",margin:"normal",value:r,onChange:e,fullWidth:!0,multiline:!0,rows:8,required:!0})}export{m as B};
