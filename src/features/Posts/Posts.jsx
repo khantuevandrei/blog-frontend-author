@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { Box } from "@mui/material";
 import LoadingOverlay from "../../components/LoadingOverlay";
-import PostsHeader from "../../components/PostsHeader";
-import PostsList from "../../components/PostsList";
+import PostsHeader from "../../components/Posts/PostsHeader";
+import PostsList from "../../components/Posts/PostsList";
 import GenericButton from "../../components/GenericButton";
 import AlertMessage from "../../components/AlertMessage";
 
@@ -40,6 +40,7 @@ export default function Posts() {
         setLoading(false);
       }
     }
+
     fetchPosts(user);
   }, [user, token]);
 
