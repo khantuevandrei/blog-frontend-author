@@ -13,7 +13,7 @@ export default function AuthInfo({ desc, link, nav }) {
         fontSize: 14,
       }}
     >
-      {desc}?{" "}
+      {desc}{" "}
       <Typography
         component={Link}
         to={nav}
