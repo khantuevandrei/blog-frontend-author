@@ -1,14 +1,15 @@
 import {
+  useTheme,
+  Collapse,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  useTheme,
 } from "@mui/material";
 import { CheckCircle, Cancel } from "@mui/icons-material";
 import ProgressBar from "./ProgressBar";
 
-export default function PasswordChecklist({ validations }) {
+export default function PasswordChecklist({ pass, confirmPass, validations }) {
   const theme = useTheme();
 
   const items = [
@@ -21,12 +22,12 @@ export default function PasswordChecklist({ validations }) {
   ];
 
   return (
-    <>
+    <Collapse in={Boolean(pass) || Boolean(confirmPass)} timeout={300}>
       <ProgressBar validations={validations} />
       <List dense sx={{ mt: 1 }}>
         {items.map((item) => (
           <ListItem key={item.key}>
-            <ListItemIcon>
+            <ListItemIcon sx={{ display: "flex", justifyContent: "center" }}>
               {validations[item.key] ? (
                 <CheckCircle
                   sx={(theme) => ({
@@ -51,6 +52,6 @@ export default function PasswordChecklist({ validations }) {
           </ListItem>
         ))}
       </List>
-    </>
+    </Collapse>
   );
 }
