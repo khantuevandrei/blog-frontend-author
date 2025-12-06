@@ -1,4 +1,4 @@
-import { Button, CircularProgress, useTheme } from "@mui/material";
+import { useTheme, Button, CircularProgress } from "@mui/material";
 
 export default function FormButton({ name, disabled }) {
   const theme = useTheme();
