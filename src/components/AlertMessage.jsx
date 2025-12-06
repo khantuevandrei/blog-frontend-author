@@ -8,7 +8,7 @@ export default function AlertMessage({ error, children }) {
       <Alert
         severity={"error"}
         sx={{
-          mt: 2,
+          mt: 1,
           bgcolor: theme.palette.error.light,
           color: theme.palette.error.contrastText,
           fontSize: 14,
