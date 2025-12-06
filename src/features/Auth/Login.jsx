@@ -67,13 +67,9 @@ export default function Login() {
         value={form.password}
         onChange={handleChange}
       />
-      <FormButton name="Login" disabled={loading} />
       <AlertMessage error={error}>{error}</AlertMessage>
-      <AuthInfo
-        desc={"Dont'have an account?"}
-        link={"Register"}
-        nav={"/register"}
-      />
+      <FormButton name="Login" disabled={loading} />
+      <AuthInfo desc="Dont'have an account?" link="Register" nav="/register" />
     </Form>
   );
 }
