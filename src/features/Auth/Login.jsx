@@ -1,17 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
-import { Box, Typography, useTheme } from "@mui/material";
 import Form from "../../components/Form";
 import FormField from "../../components/FormField";
 import PasswordField from "../../components/PasswordField";
 import FormButton from "../../components/FormButton";
 import AlertMessage from "../../components/AlertMessage";
+import AuthInfo from "../../components/AuthInfo";
 
 export default function Login() {
   const navigate = useNavigate();
-  const theme = useTheme();
   const { login } = useContext(AuthContext);
+
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ username: "", password: "" });
@@ -39,7 +39,6 @@ export default function Login() {
 
       if (!response.ok) {
         setError(data.message || "Login failed");
-        setLoading(false);
         return;
       }
 
@@ -49,58 +48,32 @@ export default function Login() {
       navigate("/");
     } catch {
       setError("Network error");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        flexGrow: 1,
-      }}
-    >
-      <Form width={400} name="Login" onSubmit={handleSubmit}>
-        <FormField
-          label="Username"
-          name="username"
-          value={form.username}
-          onChange={handleChange}
-        />
-        <PasswordField
-          label="Password"
-          name="password"
-          value={form.password}
-          onChange={handleChange}
-        />
-        <FormButton name="Login" disabled={loading} />
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
-        <Typography
-          sx={{
-            mt: 2,
-            textAlign: "center",
-            color: theme.palette.text.secondary,
-            fontSize: 14,
-          }}
-        >
-          Don't have an account?{" "}
-          <Typography
-            component={Link}
-            to="/register"
-            sx={{
-              color: theme.palette.primary.main,
-              textDecoration: "none",
-              fontWeight: 600,
-              "&:hover": {
-                color: theme.palette.primary.light,
-              },
-            }}
-          >
-            Register
-          </Typography>
-        </Typography>
-      </Form>
-    </Box>
+    <Form width={400} name="Login" onSubmit={handleSubmit}>
+      <FormField
+        label="Username"
+        name="username"
+        value={form.username}
+        onChange={handleChange}
+      />
+      <PasswordField
+        label="Password"
+        name="password"
+        value={form.password}
+        onChange={handleChange}
+      />
+      <FormButton name="Login" disabled={loading} />
+      <AlertMessage error={error}>{error}</AlertMessage>
+      <AuthInfo
+        desc={"Dont'have an account?"}
+        link={"Register"}
+        nav={"/register"}
+      />
+    </Form>
   );
 }
