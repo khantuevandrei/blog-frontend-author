@@ -1,5 +1,4 @@
-import { List, ListItem, Box, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { List, Box, Typography, useTheme } from "@mui/material";
 import PostCard from "./PostCard";
 
 export default function PostsList({ posts }) {

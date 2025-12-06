@@ -19,9 +19,10 @@ function App() {
       <Box
         component="main"
         sx={{
-          flexGrow: 1,
           display: "flex",
           flexDirection: "column",
+          flexGrow: 1,
+          width: "100vw",
           background: theme.palette.background.image,
         }}
       >
