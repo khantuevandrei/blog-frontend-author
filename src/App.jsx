@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import { Suspense } from "react";
 import { Container, Box, useTheme } from "@mui/material";
-import LoadingOverlay from "./components/LoadingOverlay";
+import LoadingOverlay from "./components/General/LoadingOverlay";
 import Header from "./features/Header/Header";
 import Footer from "./features/Footer/Footer";
 
