@@ -19,6 +19,7 @@ export default function Form({
         flexGrow: 1,
         mb: mb,
         mt: mt,
+        width: "100%",
       }}
     >
       <Paper
