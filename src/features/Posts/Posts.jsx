@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { Box } from "@mui/material";
-import LoadingOverlay from "../../components/LoadingOverlay";
+import LoadingOverlay from "../../components/General/LoadingOverlay";
 import PostsHeader from "../../components/Posts/PostsHeader";
 import PostsList from "../../components/Posts/PostsList";
-import GenericButton from "../../components/GenericButton";
-import AlertMessage from "../../components/AlertMessage";
+import GenericButton from "../../components/General/GenericButton";
+import AlertMessage from "../../components/General/AlertMessage";
 
 export default function Posts() {
   const navigate = useNavigate();

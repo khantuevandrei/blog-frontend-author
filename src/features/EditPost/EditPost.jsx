@@ -1,11 +1,13 @@
-import { Box, TextField, Typography, Paper } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useParams, useNavigate } from "react-router-dom";
-import FormButton from "../../components/FormButton";
-import BackButton from "../../components/BackButton";
-import AlertMessage from "../../components/AlertMessage";
-import LoadingOverlay from "../../components/LoadingOverlay";
+import FormButton from "../../components/Forms/FormButton";
+import BackButton from "../../components/General/BackButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import LoadingOverlay from "../../components/General/LoadingOverlay";
+import Form from "../../components/Forms/Form";
+import FormField from "../../components/Forms/FormField";
+import BodyField from "../../components/Forms/BodyField";
 
 export default function EditPost() {
   const { postId } = useParams();
@@ -96,53 +98,22 @@ export default function EditPost() {
   if (loading.overlay) return <LoadingOverlay />;
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexGrow: 1,
-        minHeight: "100%",
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{ p: 4, width: "100%", maxWidth: 500, position: "relative" }}
-      >
-        <BackButton onClick={() => navigate(`/${postId}`)} />
-        <Typography variant="h5" mb={2} sx={{ fontWeight: 500 }}>
-          Update Post
-        </Typography>
-
-        <Box component="form" onSubmit={handleSubmit}>
-          <TextField
-            label="Title"
-            name="title"
-            margin="normal"
-            value={form.title}
-            onChange={handleChange}
-            fullWidth
-            required
-            sx={{ mb: 2 }}
-          />
-
-          <TextField
-            label="Body"
-            name="body"
-            margin="normal"
-            value={form.body}
-            onChange={handleChange}
-            fullWidth
-            multiline
-            rows={6}
-            required
-          />
-
-          <FormButton name="Update" disabled={loading.update} />
-        </Box>
-
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
-      </Paper>
-    </Box>
+    <Form width={600} name="Update Post" onSubmit={handleSubmit}>
+      <BackButton nav={`/${postId}`} />
+      <FormField
+        label="Title"
+        name="title"
+        value={form.title}
+        onChange={handleChange}
+      />
+      <BodyField
+        label="Body"
+        name="body"
+        value={form.body}
+        onChange={handleChange}
+      />
+      <AlertMessage error={error}>{error}</AlertMessage>
+      <FormButton name="Update" disabled={loading.update} />
+    </Form>
   );
 }

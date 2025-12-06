@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Paper, Typography, Box, useTheme } from "@mui/material";
 import { AuthContext } from "../../context/AuthProvider";
-import LoadingOverlay from "../../components/LoadingOverlay";
-import GenericButton from "../../components/GenericButton";
-import BackButton from "../../components/BackButton";
-import AlertMessage from "../../components/AlertMessage";
-import MetaLine from "../../components/MetaLine";
-import Comment from "../../components/Comment";
+import LoadingOverlay from "../../components/General/LoadingOverlay";
+import GenericButton from "../../components/General/GenericButton";
+import BackButton from "../../components/General/BackButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import MetaLine from "../../components/Posts/MetaLine";
+import Comment from "../../components/Posts/Comment";
 import ErrorPage from "../ErrorPage/ErrorPage";
 
 export default function Post() {
@@ -205,13 +205,17 @@ export default function Post() {
         sx={{
           p: 4,
           borderRadius: 3,
-          width: 600,
-          mt: 6,
+          width: "100%",
+          maxWidth: 600,
+          mt: 10,
           position: "relative",
+          [theme.breakpoints.up("sm")]: {
+            mt: 6,
+          },
         }}
       >
-        <BackButton onClick={() => navigate("/")} />
-        <Typography variant="h4" fontWeight={600} mb={2}>
+        <BackButton nav={"/"} />
+        <Typography variant="h5" fontWeight={600} mb={2}>
           {post.title}
         </Typography>
 
@@ -257,7 +261,7 @@ export default function Post() {
           />
         </Box>
 
-        {error && <AlertMessage type="error">{error}</AlertMessage>}
+        <AlertMessage error={error}>{error}</AlertMessage>
       </Paper>
 
       {/* Comments */}
@@ -268,7 +272,8 @@ export default function Post() {
             p: 4,
             borderRadius: 3,
             my: 6,
-            width: 600,
+            width: "100%",
+            maxWidth: 600,
           }}
         >
           <Typography variant="h5" fontWeight={600} mb={2}>
@@ -287,7 +292,7 @@ export default function Post() {
           <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
             {hasMoreComments && (
               <GenericButton
-                name="Load next 5"
+                name="Next 5"
                 disabled={loading.next}
                 onClick={() => loadNextComments(5)}
               />
@@ -295,7 +300,7 @@ export default function Post() {
 
             {hasMoreComments && (
               <GenericButton
-                name="Load all comments"
+                name="Load all"
                 disabled={loading.nextAll}
                 onClick={() => loadNextComments(post.total_comments)}
               />

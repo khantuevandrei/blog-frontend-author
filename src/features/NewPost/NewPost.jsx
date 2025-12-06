@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router";
-import AlertMessage from "../../components/AlertMessage";
-import Form from "../../components/Form";
-import BackButton from "../../components/BackButton";
-import FormField from "../../components/FormField";
-import BodyField from "../../components/BodyField";
-import FormButton from "../../components/FormButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import Form from "../../components/Forms/Form";
+import BackButton from "../../components/General/BackButton";
+import FormField from "../../components/Forms/FormField";
+import BodyField from "../../components/Forms/BodyField";
+import FormButton from "../../components/Forms/FormButton";
 
 export default function NewPost() {
   const { token } = useContext(AuthContext);
