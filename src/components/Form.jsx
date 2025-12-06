@@ -16,6 +16,7 @@ export default function Form({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexGrow: 1,
         mb: mb,
         mt: mt,
       }}
