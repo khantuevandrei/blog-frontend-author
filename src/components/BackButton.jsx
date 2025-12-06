@@ -1,16 +1,19 @@
 import { ArrowBack } from "@mui/icons-material";
 import { IconButton, useTheme } from "@mui/material";
+import { Link } from "react-router";
 
-export default function BackButton({ onClick }) {
+export default function BackButton({ nav }) {
   const theme = useTheme();
 
   return (
     <IconButton
-      onClick={onClick}
+      component={Link}
+      to={nav}
       sx={{
         position: "absolute",
-        top: 0,
-        left: -100,
+        top: -60,
+        left: 0,
+        [theme.breakpoints.up("sm")]: { top: 0, left: -60 },
         bgcolor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText,
         fontSize: 40,
