@@ -51,6 +51,15 @@ export const lightTheme = createTheme({
     fontFamily: "'Poppins', Arial, sans-serif",
     button: { textTransform: "none", fontWeight: 500 },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
 });
 
 // Dark theme
@@ -103,5 +112,14 @@ export const darkTheme = createTheme({
   typography: {
     fontFamily: "'Poppins', Arial, sans-serif",
     button: { textTransform: "none", fontWeight: 500 },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
   },
 });
