@@ -1,18 +1,20 @@
-import Form from "../../components/Form";
-import FormField from "../../components/FormField";
-import PasswordField from "../../components/PasswordField";
-import FormButton from "../../components/FormButton";
-import BackButton from "../../components/BackButton";
-import AlertMessage from "../../components/AlertMessage";
-import UsernameChecklist from "../../components/UsernameChecklist";
-import PasswordChecklist from "../../components/PasswordChecklist";
+import Form from "../../components/Forms/Form";
+import FormField from "../../components/Forms/FormField";
+import PasswordField from "../../components/Forms/PasswordField";
+import FormButton from "../../components/Forms/FormButton";
+import BackButton from "../../components/General/BackButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import ALertSuccess from "../../components/General/AlertSuccess";
+import UsernameChecklist from "../../components/Auth/UsernameChecklist";
+import PasswordChecklist from "../../components/Auth/PasswordChecklist";
+import { validateUsername, validatePassword } from "../../utils/validations";
+
 import { AuthContext } from "../../context/AuthProvider";
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
-import { Box, Collapse } from "@mui/material";
+import { useTheme, Box } from "@mui/material";
 
 export default function UpdateUser() {
-  const navigate = useNavigate();
+  const theme = useTheme();
   const { user, token, login } = useContext(AuthContext);
   const [error, setError] = useState({
     username: null,
@@ -32,32 +34,11 @@ export default function UpdateUser() {
     confirmPassword: "",
   });
 
-  const usernameRegex = {
-    length: /^.{3,20}$/,
-    validChars: /^[A-Za-z0-9_]+$/,
-  };
-
-  const usernameValidations = {
-    length: usernameRegex.length.test(form.username),
-    validChars: usernameRegex.validChars.test(form.username),
-  };
-
-  const passwordRegex = {
-    lowercase: /[a-z]/,
-    uppercase: /[A-Z]/,
-    number: /\d/,
-    symbol: /[!@#$%^&*()_\-+=[\]{};:"\\|,.<>/?]/,
-    length: /.{8,}/,
-  };
-
-  const passwordValidations = {
-    length: passwordRegex.length.test(form.password),
-    lowercase: passwordRegex.lowercase.test(form.password),
-    uppercase: passwordRegex.uppercase.test(form.password),
-    number: passwordRegex.number.test(form.password),
-    symbol: passwordRegex.symbol.test(form.password),
-    passwordsMatch: form.password && form.password === form.confirmPassword,
-  };
+  const usernameValidations = validateUsername(form.username);
+  const passwordValidations = validatePassword(
+    form.password,
+    form.confirmPassword
+  );
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value.trim() });
@@ -169,9 +150,13 @@ export default function UpdateUser() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
         flexGrow: 1,
+        width: "100%",
         gap: 4,
+        pt: 6,
+        [theme.breakpoints.up("sm")]: {
+          pt: 0,
+        },
       }}
     >
       <Form
@@ -180,7 +165,7 @@ export default function UpdateUser() {
         onSubmit={handleSubmitUsername}
         mb={0}
       >
-        <BackButton onClick={() => navigate("/")} />
+        <BackButton nav={"/"} />
 
         <FormField
           label="New username"
@@ -190,16 +175,15 @@ export default function UpdateUser() {
           required={true}
         />
 
-        <Collapse in={Boolean(form.username)} timeout={300}>
-          <UsernameChecklist validations={usernameValidations} />
-        </Collapse>
+        <UsernameChecklist
+          username={form.username}
+          validations={usernameValidations}
+        />
 
-        {error.username && (
-          <AlertMessage type="error">{error.username}</AlertMessage>
-        )}
-        {success.username && (
-          <AlertMessage type="success">{success.username}</AlertMessage>
-        )}
+        <AlertMessage error={error.username}>{error.username}</AlertMessage>
+        <ALertSuccess success={success.username}>
+          {success.username}
+        </ALertSuccess>
         <FormButton name="Update" disabled={loading.username} />
       </Form>
       <Form
@@ -223,18 +207,15 @@ export default function UpdateUser() {
           required={true}
         />
 
-        <Collapse
-          in={Boolean(form.password || form.confirmPassword)}
-          timeout={300}
-        >
-          <PasswordChecklist validations={passwordValidations} />
-        </Collapse>
-        {error.password && (
-          <AlertMessage type="error">{error.password}</AlertMessage>
-        )}
-        {success.password && (
-          <AlertMessage type="success">{success.password}</AlertMessage>
-        )}
+        <PasswordChecklist
+          pass={form.password}
+          confirmPass={form.confirmPassword}
+          validations={passwordValidations}
+        />
+        <AlertMessage error={error.password}>{error.password}</AlertMessage>
+        <ALertSuccess success={success.password}>
+          {success.password}
+        </ALertSuccess>
         <FormButton name="Update" disabled={loading.password} />
       </Form>
     </Box>
