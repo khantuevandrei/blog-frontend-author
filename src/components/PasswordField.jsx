@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { TextField, IconButton, InputAdornment, useTheme } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useState } from "react";
 
 export default function PasswordField({
   label,
@@ -10,8 +10,11 @@ export default function PasswordField({
   required = true,
 }) {
   const [show, setShow] = useState(false);
-  const toggle = () => setShow((prev) => !prev);
   const theme = useTheme();
+
+  function toggleShow() {
+    setShow((prev) => !prev);
+  }
 
   return (
     <TextField
@@ -34,7 +37,7 @@ export default function PasswordField({
         },
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton onClick={toggle} edge="end">
+            <IconButton onClick={toggleShow} edge="end">
               {show ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
