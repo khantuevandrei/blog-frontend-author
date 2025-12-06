@@ -48,17 +48,21 @@ export default function Post() {
             },
           }
         );
+
         const data = await response.json();
+
         if (!response.ok) {
-          setLoading((prev) => ({ ...prev, overlay: false }));
           setError(data.message);
           return;
         }
+
         setPost(data);
         setComments(data.comments);
+
         if (data.total_comments < 5) {
           setHasMoreComments(false);
         }
+
         if (data.total_comments > 5) {
           setHasMoreComments(true);
           setOffset(5);
@@ -89,12 +93,14 @@ export default function Post() {
           },
         }
       );
+
       const data = await response.json();
+
       if (!response.ok) {
-        setLoading((prev) => ({ ...prev, publish: false }));
         setError(data.message) || "Publishing failed";
         return;
       }
+
       setPost(data);
     } catch {
       setError("Network error");
@@ -119,12 +125,14 @@ export default function Post() {
           },
         }
       );
+
       const data = await response.json();
+
       if (!response.ok) {
-        setLoading((prev) => ({ ...prev, delete: false }));
         setError(data.message) || "Deletion failed";
         return;
       }
+
       navigate("/");
     } catch {
       setError("Network Error");
@@ -145,11 +153,10 @@ export default function Post() {
       const response = await fetch(
         `https://blog-backend-production-16f8.up.railway.app/api/posts/${postId}/comments?limit=${limit}&offset=${offset}`
       );
+
       const data = await response.json();
 
       if (!response.ok) {
-        setLoading((prev) => ({ ...prev, next: false }));
-        setLoading((prev) => ({ ...prev, nextAll: false }));
         setError(data.message || "Failed to get comments");
         return;
       }
