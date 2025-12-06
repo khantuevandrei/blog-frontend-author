@@ -16,13 +16,16 @@ export default function Header() {
       sx={{
         display: "flex",
         justifyContent: "center",
-        [theme.breakpoints.up("sm")]: { justifyContent: "space-between" },
+
         flexWrap: "wrap",
         width: "100%",
         mx: "auto",
         maxWidth: "md",
         gap: 0,
-        [theme.breakpoints.up("sm")]: { gap: 2 },
+        [theme.breakpoints.up("sm")]: {
+          justifyContent: "space-between",
+          gap: 2,
+        },
       }}
     >
       <Logo />
