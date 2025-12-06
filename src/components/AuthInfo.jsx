@@ -1,4 +1,4 @@
-import { Typography, useTheme } from "@mui/material";
+import { useTheme, Typography } from "@mui/material";
 import { Link } from "react-router";
 
 export default function AuthInfo({ desc, link, nav }) {
