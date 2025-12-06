@@ -1,14 +1,14 @@
 import { validateUsername, validatePassword } from "../../utils/validations";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Form from "../../components/Form";
-import FormField from "../../components/FormField";
-import UsernameChecklist from "../../components/UsernameChecklist";
-import PasswordField from "../../components/PasswordField";
-import PasswordChecklist from "../../components/PasswordChecklist";
-import FormButton from "../../components/FormButton";
-import AlertMessage from "../../components/AlertMessage";
-import AuthInfo from "../../components/AuthInfo";
+import Form from "../../components/Forms/Form";
+import FormField from "../../components/Forms/FormField";
+import UsernameChecklist from "../../components/Auth/UsernameChecklist";
+import PasswordField from "../../components/Forms/PasswordField";
+import PasswordChecklist from "../../components/Auth/PasswordChecklist";
+import FormButton from "../../components/Forms/FormButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import AuthInfo from "../../components/Auth/AuthInfo";
 
 export default function Register() {
   const navigate = useNavigate();

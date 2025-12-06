@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import Form from "../../components/Form";
-import FormField from "../../components/FormField";
-import PasswordField from "../../components/PasswordField";
-import FormButton from "../../components/FormButton";
-import AlertMessage from "../../components/AlertMessage";
-import AuthInfo from "../../components/AuthInfo";
+import Form from "../../components/Forms/Form";
+import FormField from "../../components/Forms/FormField";
+import PasswordField from "../../components/Forms/PasswordField";
+import FormButton from "../../components/Forms/FormButton";
+import AlertMessage from "../../components/General/AlertMessage";
+import AuthInfo from "../../components/Auth/AuthInfo";
 
 export default function Login() {
   const navigate = useNavigate();
