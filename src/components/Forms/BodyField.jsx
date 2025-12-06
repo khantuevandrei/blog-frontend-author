@@ -10,7 +10,7 @@ export default function BodyField({ value, onChange }) {
       onChange={onChange}
       fullWidth
       multiline
-      rows={6}
+      rows={8}
       required
     />
   );

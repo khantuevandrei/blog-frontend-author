@@ -1,6 +1,6 @@
 import { useTheme, Typography, ListItem } from "@mui/material";
 import { Link } from "react-router";
-import MetaLine from "../MetaLine";
+import MetaLine from "./MetaLine";
 
 export default function PostCard({ post }) {
   const theme = useTheme();
@@ -54,11 +54,10 @@ export default function PostCard({ post }) {
 
       <MetaLine label="Updated" value={post.updated_at} />
 
-      {post.published ? (
-        <MetaLine label="Published" value={post.published} />
-      ) : (
-        <MetaLine label="Not published" />
-      )}
+      <MetaLine
+        label={post.published ? "Published" : "Not published"}
+        value={post.published_at}
+      />
 
       <MetaLine label={`Comments: ${post.total_comments}`} />
     </ListItem>

@@ -1,7 +1,7 @@
-import { useTheme, Typography, Link } from "@mui/material";
-import HeaderLink from "./HeaderLink";
+import { useTheme, Typography, Link as MuiLink } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import { Link } from "react-router";
 
 export default function UserButton() {
   const { user } = useContext(AuthContext);
@@ -19,7 +19,9 @@ export default function UserButton() {
       }}
     >
       Hello,&nbsp;{" "}
-      <Link
+      <MuiLink
+        component={Link}
+        to="/me"
         sx={{
           textDecoration: "none",
           color: theme.palette.primary.main,
@@ -27,7 +29,7 @@ export default function UserButton() {
         }}
       >
         {user.username}
-      </Link>
+      </MuiLink>
     </Typography>
   );
 }

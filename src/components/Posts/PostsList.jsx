@@ -27,7 +27,7 @@ export default function PostsList({ posts }) {
   return (
     <List sx={{ width: "100%", maxWidth: 600 }}>
       {posts.map((post) => (
-        <PostCard post={post} />
+        <PostCard key={post.id} post={post} />
       ))}
     </List>
   );

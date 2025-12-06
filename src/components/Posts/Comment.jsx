@@ -1,4 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
+import MetaLine from "./MetaLine";
 
 export default function Comment({ comment, isLast }) {
   const theme = useTheme();
@@ -15,18 +16,7 @@ export default function Comment({ comment, isLast }) {
         <Typography variant="subtitle1" fontWeight={600}>
           @{comment.author.username}
         </Typography>
-        <Typography
-          variant="caption"
-          sx={{ color: theme.palette.text.secondary }}
-        >
-          {new Date(comment.created_at).toLocaleString(undefined, {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </Typography>
+        <MetaLine value={comment.created_at} />
       </Box>
       <Typography
         variant="body1"

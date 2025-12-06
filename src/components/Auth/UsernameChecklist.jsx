@@ -7,7 +7,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { CheckCircle, Cancel } from "@mui/icons-material";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "../Auth/ProgressBar";
 
 export default function UsernameChecklist({ username, validations }) {
   const theme = useTheme();
