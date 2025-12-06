@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
-import { Box, Typography, useTheme } from "@mui/material";
-import PostsList from "../../components/PostsList";
+import { Box } from "@mui/material";
 import LoadingOverlay from "../../components/LoadingOverlay";
-import AlertMessage from "../../components/AlertMessage";
+import PostsHeader from "../../components/PostsHeader";
+import PostsList from "../../components/PostsList";
 import GenericButton from "../../components/GenericButton";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function Posts() {
   const navigate = useNavigate();
-  const theme = useTheme();
   const { user, token } = useContext(AuthContext);
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
@@ -25,12 +25,14 @@ export default function Posts() {
             headers: { Authorization: `bearer ${token}` },
           }
         );
+
         const data = await response.json();
 
         if (!response.ok) {
           setError(data.message || "Error fetching posts");
           return;
         }
+
         setPosts(data);
       } catch {
         setError("Network error");
@@ -54,25 +56,10 @@ export default function Posts() {
         my: 6,
       }}
     >
-      <Typography
-        variant="h4"
-        sx={{
-          width: "100%",
-          maxWidth: 600,
-          mx: "auto",
-          my: 4,
-          fontWeight: 700,
-          textAlign: "center",
-          color: theme.palette.text.primary,
-        }}
-      >
-        Your Posts:
-      </Typography>
+      <PostsHeader />
       <PostsList posts={posts} />
-      <Box display="flex" justifyContent="center">
-        <GenericButton name="New post" onClick={() => navigate("/new")} />
-      </Box>
-      {error && <AlertMessage type="error">{error}</AlertMessage>}
+      <GenericButton name="New post" onClick={() => navigate("/new")} />
+      <AlertMessage error={error}>{error}</AlertMessage>
     </Box>
   );
 }
